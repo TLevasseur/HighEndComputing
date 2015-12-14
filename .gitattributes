@@ -15,3 +15,15 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+
+#Latex output
+*.aux
+*.lof
+*.lot
+*.log
+*.toc
+*.bbl
+*.run.xml
+*.gz
+*.blg
