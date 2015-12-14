@@ -8,6 +8,11 @@
 *.run.xml
 *.gz
 *.blg
+*.snm
+*.nav
+*.out
+*.pdf
+
 main-blx.bib
 # Windows image file caches
 Thumbs.db
