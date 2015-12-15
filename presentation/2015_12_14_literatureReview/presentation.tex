@@ -50,7 +50,7 @@
 % A subtitle is optional and this may be deleted
 \subtitle{A review of three papers}
 
-\author{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
+\author[T.~Levasseur]{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
 % - Give the names in the same order as the appear in the paper.
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
@@ -63,7 +63,7 @@
 % - Use the \inst command only if there are several affiliations.
 % - Keep it simple, no one is interested in your street address.
 
-\date{Apps in Practical High End Computing}
+\date{High End Computing}
 % - Either use conference name or its abbreviation.
 % - Not really informative to the audience, more for people (including
 %   yourself) who are reading the slides online
@@ -92,13 +92,37 @@
 \begin{document}
 
 \begin{frame}
+
   \titlepage
+
 \end{frame}
 
-\begin{frame}{Outline}
-  \tableofcontents
-  % You might wish to add the option [pausesections]
+\subsection<presentation>*{References}
+
+\begin{frame}[allowframebreaks]
+	\frametitle<presentation>{References}
+	
+	\begin{thebibliography}{10}
+		
+		\beamertemplatearticlebibitems
+		% Followed by interesting articles. Keep the list short. 
+		
+		\bibitem{Someone2000}
+		G.~Karipys and V.~Kumar
+		\newblock Multilevel graph partitioning schemes.
+		
+		\bibitem{Someone2000}
+		G.~Karipys and V.~Kumar
+		\newblock Multilevel k-way partitioning schemes for irregular graphs.
+		
+		\bibitem{Someone2000}
+		G.~Karipys and V.~Kumar
+		\newblock A fast and high quality multilevel schemes for partitioning irregular graphs.
+		
+	\end{thebibliography}
 \end{frame}
+
+
 
 % Section and subsections will appear in the presentation overview
 % and table of contents.
@@ -181,7 +205,7 @@
 		 \end{itemize}
 	\end{block}
 \end{frame}
-
+\author[W.~Pei]{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
 \section{Initial partitioning}
 
 \begin{frame}{Spectral Bisection}
@@ -245,7 +269,7 @@ to the smaller increase in the edge-cut
 \item Degree of parallism
 \end{itemize}
 \end{frame}
-
+\author[G.~Perez Bada]{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
 \section{Uncoarsening}
 \begin{frame}{Uncoarsening}
 	\begin{block}{Definition}
@@ -316,6 +340,7 @@ to the smaller increase in the edge-cut
 		the highest gain that addresses the Load Balancing Condition 
 	\end{block}
 \end{frame}
+\author[Q.~Diaferia]{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
 \section{Results}
 
 \begin{frame}{Coarsening phase}
