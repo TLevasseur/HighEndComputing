@@ -45,7 +45,7 @@
 %\usetheme{Szeged}
 %\usetheme{Warsaw}
 
-\title{Graphe Partitionning}
+\title{Graph Partitionning}
 
 % A subtitle is optional and this may be deleted
 \subtitle{A review of three papers}
@@ -57,8 +57,8 @@
 
 \institute[Cranfield University] % (optional, but mostly needed)
 {
-  School of Aerospace\\
-  Cranfield University
+	School of Aerospace\\
+	Cranfield University
 }
 % - Use the \inst command only if there are several affiliations.
 % - Keep it simple, no one is interested in your street address.
@@ -83,350 +83,350 @@
 % the beginning of each subsection:
 \AtBeginSection[]
 {
-  \begin{frame}<beamer>{Outline}
-    \tableofcontents[currentsection,currentsubsection]
-  \end{frame}
+	\begin{frame}<beamer>{Outline}
+		\tableofcontents[currentsection,currentsubsection]
+	\end{frame}
 }
 
 % Let's get started
 \begin{document}
-
-\begin{frame}
-
-  \titlepage
-
-\end{frame}
-
-\subsection<presentation>*{References}
-
-\begin{frame}[allowframebreaks]
-	\frametitle<presentation>{References}
 	
-	\begin{thebibliography}{10}
+	\begin{frame}
 		
-		\beamertemplatearticlebibitems
-		% Followed by interesting articles. Keep the list short. 
+		\titlepage
 		
-		\bibitem{Someone2000}
-		G.~Karipys and V.~Kumar
-		\newblock Multilevel graph partitioning schemes.
-		
-		\bibitem{Someone2000}
-		G.~Karipys and V.~Kumar
-		\newblock Multilevel k-way partitioning schemes for irregular graphs.
-		
-		\bibitem{Someone2000}
-		G.~Karipys and V.~Kumar
-		\newblock A fast and high quality multilevel schemes for partitioning irregular graphs.
-		
-	\end{thebibliography}
-\end{frame}
-
-
-
-% Section and subsections will appear in the presentation overview
-% and table of contents.
-\section{Coarsening}
-
-
-\begin{frame}{Coarsening phase}
+	\end{frame}
 	
-	\begin{block}{Definition}
-	Corasening aims to reduce the size of the graph in order to make it easier to split step by step with
-	\(G_i \to G_{i+1}\)~and \(V^\nu_i \to \nu\) 
-	\( with \begin{cases}
-		weight(\nu)& = \Sigma ~ weight(V^\nu_i) \\
-		edges(\nu) & =  \cup ~ edges(V^\nu_i)
-	\end{cases}
-	\)
-	\end{block}
-	\begin{block}{2 approaches}
-		 \begin{itemize}
-			\item random matching and collapsing
-			\item match and colapse vertice high connected node
-		 \end{itemize}
-	\end{block}
-\end{frame}
-
-
-\begin{frame}{Random Matching (RM)}
-	\begin{block}{Step by step}
-		 \begin{itemize}
-			\item visit vertices in random order
-			\item try to find a random unmatch neighbour
-			\item if found, match them
-			\item if not, only copy to the next graph step
-		 \end{itemize}
-	\end{block}
-\end{frame}
-
-
-\begin{frame}{Heavy Edge Matching (HEM)}
-	\begin{block}{Step by step}
-		 \begin{itemize}
-			\item visit vertices in random order
-			\item try to find an unmatch neighbour with the heavier edge
-			\item if found, match them
-			\item if not, only copy to the next graph step
-		 \end{itemize}
-	\end{block}
-\end{frame}
-
-
-\begin{frame}{Modified Heavy Edge Matching (HEM*)}
-	\begin{block}{Step by step}
-		 \begin{itemize}
-			\item visit vertices in random order
-			\item try to find an unmatch neighbour whose neigbours egdes towards the first vertice sum is maximal
-			\item if found, match them
-			\item if not, only copy to the next graph step
-		 \end{itemize}
-	\end{block}
-\end{frame}
-
-
-\begin{frame}{Light Edge Matching (LEM)}
-	\begin{block}{Step by step}
-		 \begin{itemize}
-			\item visit vertices in random order
-			\item try to find an unmatch neighbour with the lightest edge
-			\item if found, match them
-			\item if not, only copy to the next graph step
-		 \end{itemize}
-	\end{block}
-\end{frame}
-
-
-\begin{frame}{Heavy Clique Matching (HCM)}
-	\begin{block}{Step by step}
-		 \begin{itemize}
-			\item find fully connected subgraph (or almost)
-			\item match all the vertices of each subgraph
-		 \end{itemize}
-	\end{block}
-\end{frame}
-\author[W.~Pei]{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
-\section{Initial partitioning}
-
-\begin{frame}{Spectral Bisection}
-
- \[a_{ij} =
-  \begin{cases}
-    ew(v_{i},v_{j})     & \quad \text{if } (v_{i},v_{j})  \in E_{m}\\
-    0 & \quad \text{otherwise}\\
-  \end{cases}
-\]
- \[ D: d_{ij} = \sum ew(v_{i},v_{j}) \]
- \[ Q = D-A \]
- Find eignevector y
-  \[ P_{ij} =
-  \begin{cases}
-   1    & \quad \text{if } y_{i} < r \\
- 2 & \quad \text{otherwise}\\
-  \end{cases}
-\]
-\end{frame}
-
-
-
-\begin{frame}{KL algorithm}
-	\begin{itemize}
-		\item Bi partition
-		\item Look for subset of vertexs in each partition such that swapping them leads to a partition with smaller edge-cut
-	\end{itemize}
-	\begin{block}{Gain}
-		 $gv(v) = \sum w(v,u)_{(v,u)\in E\bigwedge P[v]\neq P[u]} - \sum w(v,u)_{(v,u)\in E\bigwedge P[v]= P[u] }$
-	\end{block}
-\end{frame}
-
-
-
-
-
-\begin{frame}{GGP}
-\begin{itemize}
-\item Pick a vertex
-\item Grow a region from it until half of the vertexes have been included
-\end{itemize}
-\end{frame}
-\begin{frame}{GGGP}
-\begin{itemize}
-\item Pick a vertex
-\item Includes vertexes that lead
-to the smaller increase in the edge-cut
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}{Caraterization of different graph partitioning schemes}
-\begin{itemize}
-\item Number of trial
-\item Needs coordinates
-\item Quality
-\item Local view
-\item Global view
-\item Run time
-\item Degree of parallism
-\end{itemize}
-\end{frame}
-\author[G.~Perez Bada]{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
-\section{Uncoarsening}
-\begin{frame}{Uncoarsening}
-	\begin{block}{Definition}
-		Projects the partition \(P_{m}\) of the coarser grapth to the original \\
-		Goes step by step using \(G_{m-1}~G_{m-2}~...~G_1\) \\
-		\(P_i~is obtained from P_{i+1}\) by assigning the vertices collapsed from \(G_i\)\\
-	\end{block}
-	\begin{block}{Redefinement algorithm}
-		When obtaining \(P_i\), there are some degrees of freedom for distributing the unfolded nodes\\
-		The way to distribute the nodes can boost the quality of the partitioning
-	\end{block}
-\end{frame}
-
-\begin{frame}{Kernighan-Lin Refinement}
-	\begin{block}{Base Principle}
-		Being a graph split in partitions A and B, we select
-		\[A'\subset A~and~B'\subset B~so~that~A\setminus A'\cup B~and~B\setminus B'\cup A\]\\
-		Is a bisection with smaller edge cut count
-	\end{block}
-	\begin{block}{Key Concepts}
+	\subsection<presentation>*{References}
+	
+	\begin{frame}[allowframebreaks]
+		\frametitle<presentation>{References}
+		
+		\begin{thebibliography}{10}
+			
+			\beamertemplatearticlebibitems
+			% Followed by interesting articles. Keep the list short. 
+			
+			\bibitem{Someone2000}
+			G.~Karipys and V.~Kumar
+			\newblock Multilevel graph partitioning schemes.
+			
+			\bibitem{Someone2000}
+			G.~Karipys and V.~Kumar
+			\newblock Multilevel k-way partitioning schemes for irregular graphs.
+			
+			\bibitem{Someone2000}
+			G.~Karipys and V.~Kumar
+			\newblock A fast and high quality multilevel schemes for partitioning irregular graphs.
+			
+		\end{thebibliography}
+	\end{frame}
+	
+	
+	
+	% Section and subsections will appear in the presentation overview
+	% and table of contents.
+	\section{Coarsening}
+	
+	
+	\begin{frame}{Coarsening phase}
+		
+		\begin{block}{Definition}
+			Corasening aims to reduce the size of the graph in order to make it easier to split step by step with
+			\(G_i \to G_{i+1}\)~and \(V^\nu_i \to \nu\) 
+			\( with \begin{cases}
+			weight(\nu)& = \Sigma ~ weight(V^\nu_i) \\
+			edges(\nu) & =  \cup ~ edges(V^\nu_i)
+			\end{cases}
+			\)
+		\end{block}
+		\begin{block}{2 approaches}
+			\begin{itemize}
+				\item random matching and collapsing
+				\item match and colapse vertice high connected node
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	
+	\begin{frame}{Random Matching (RM)}
+		\begin{block}{Step by step}
+			\begin{itemize}
+				\item visit vertices in random order
+				\item try to find a random unmatch neighbour
+				\item if found, match them
+				\item if not, only copy to the next graph step
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	
+	\begin{frame}{Heavy Edge Matching (HEM)}
+		\begin{block}{Step by step}
+			\begin{itemize}
+				\item visit vertices in random order
+				\item try to find an unmatch neighbour with the heavier edge
+				\item if found, match them
+				\item if not, only copy to the next graph step
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	
+	\begin{frame}{Modified Heavy Edge Matching (HEM*)}
+		\begin{block}{Step by step}
+			\begin{itemize}
+				\item visit vertices in random order
+				\item try to find an unmatch neighbour whose neigbours egdes towards the first vertice sum is maximal
+				\item if found, match them
+				\item if not, only copy to the next graph step
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	
+	\begin{frame}{Light Edge Matching (LEM)}
+		\begin{block}{Step by step}
+			\begin{itemize}
+				\item visit vertices in random order
+				\item try to find an unmatch neighbour with the lightest edge
+				\item if found, match them
+				\item if not, only copy to the next graph step
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	
+	\begin{frame}{Heavy Clique Matching (HCM)}
+		\begin{block}{Step by step}
+			\begin{itemize}
+				\item find fully connected subgraph (or almost)
+				\item match all the vertices of each subgraph
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	\author[W.~Pei]{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
+	\section{Initial partitioning}
+	
+	\begin{frame}{Spectral Bisection}
+		
+		\[a_{ij} =
+		\begin{cases}
+		ew(v_{i},v_{j})     & \quad \text{if } (v_{i},v_{j})  \in E_{m}\\
+		0 & \quad \text{otherwise}\\
+		\end{cases}
+		\]
+		\[ D: d_{ij} = \sum ew(v_{i},v_{j}) \]
+		\[ Q = D-A \]
+		Find eignevector y
+		\[ P_{ij} =
+		\begin{cases}
+		1    & \quad \text{if } y_{i} < r \\
+		2 & \quad \text{otherwise}\\
+		\end{cases}
+		\]
+	\end{frame}
+	
+	
+	
+	\begin{frame}{KL algorithm}
 		\begin{itemize}
-			\item Gain - Number of edge cuts decreased by swapping the vertex v
-			\item Vertex move max (X) - Number of pointless iterations needed for the algorithm to stop
+			\item Bi partition
+			\item Look for subset of vertexs in each partition such that swapping them leads to a partition with smaller edge-cut
 		\end{itemize}
-	\end{block}
-	\begin{block}{Algorithm Quality}
+		\begin{block}{Gain}
+			$gv(v) = \sum w(v,u)_{(v,u)\in E\bigwedge P[v]\neq P[u]} - \sum w(v,u)_{(v,u)\in E\bigwedge P[v]= P[u] }$
+		\end{block}
+	\end{frame}
+	
+	
+	
+	
+	
+	\begin{frame}{GGP}
 		\begin{itemize}
-			\item Gain Computation - On which vertices will the gain be computed in each iteration
-			\item Data Structure - For storing data relative to each vertex
+			\item Pick a vertex
+			\item Grow a region from it until half of the vertexes have been included
 		\end{itemize}
-	\end{block}
-\end{frame}
-\begin{frame}{Refinement Methods}
-	\begin{block}{Kernighan-Lin Refinement - KLR}
-		Uses the partition obtained for \(G_{i+1}\) as the initial iteration partition for \(G_{i}\)\\
-		Reaches convergence in less iterations (Usually around five)\\
-		Low number of vertex swaps
-	\end{block}
-	\begin{block}{Greedy Refinement - GR}
-		Modification of KLR taking into account that most of the progress is done in the first iteration\\
-		Performs a single iteration for each partition step\\
-		Reduced computation time
-	\end{block}
-\end{frame}
-\begin{frame}{Refinement Methods}	
-	\begin{block}{Boundary Refinement}
-		Only take into account boundary vertices\\
-		If a vertex is swapped, recalculate adjacent gains and update them to boundary if needed		
+	\end{frame}
+	\begin{frame}{GGGP}
 		\begin{itemize}
-			\item \textbf{Greedy - BGR} - Performs a single iteration
-			\item \textbf{Kernighan-Lin - BKLR} - Iteration number defined by accuracy
-			\item \textbf{Hybrid - BKLGR} - Uses BKLR for small graphs and BGR for bigger ones
+			\item Pick a vertex
+			\item Includes vertexes that lead
+			to the smaller increase in the edge-cut
 		\end{itemize}
-	\end{block}
-\end{frame}
-\begin{frame}{K-way Refinement Methods}
-	The complexity of the KL algorithm increases when using more than 2 partitions \\
-	\textbf{Neighborhood N(v)} - The external partitions connected to each vertex\\
-	\textbf{Load Balancing condition} - Minimum and maximum work loads are assigned for every partition\\
-	\textbf{priority lists} - \(k*(k-1)\) 
-	\begin{block}{K-way Greedy Refinement - kGR}
-		Eliminates lookahead - Vertex cluster swapping\\
-		No need for priority lists
-	\end{block}
-	\begin{block}{K-way Global LR Refinement - kGKLR}
-		Fixes the local minima nature of the algorithm with a global priority queue\\
-		Each vertex with at least one non-negative gain gets added to the queue and it is swapped to the partition with
-		the highest gain that addresses the Load Balancing Condition 
-	\end{block}
-\end{frame}
-\author[Q.~Diaferia]{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
-\section{Results}
-
-\begin{frame}{Coarsening phase}
-	\begin{block}{First article}
-		HEM :
+	\end{frame}
+	
+	
+	\begin{frame}{Caraterization of different graph partitioning schemes}
 		\begin{itemize}
-			\item Good initial partition, smaller edge-cut, little refinement
-			\item Requires more time
+			\item Number of trial
+			\item Needs coordinates
+			\item Quality
+			\item Local view
+			\item Global view
+			\item Run time
+			\item Degree of parallism
 		\end{itemize}
-	\end{block}
-	\begin{block}{Second article}
-		HEM :
-		\begin{itemize}
-			\item Good initial partition, smallest overall runtime
-		\end{itemize}
-		HEM* :
-		\begin{itemize}
-			\item Better for finite element meshes
-		\end{itemize}
-	\end{block}
-	\begin{block}{Third article}
-		HEM :
-		\begin{itemize}
-			\item Good initial partition, smallest overall runtime
-		\end{itemize}
-	\end{block}
-\end{frame}
-
-\begin{frame}{Initial partitioning phase}
-	\begin{block}{First and third articles}
-		GGGP :
-		\begin{itemize}
-			\item Smaller edge-cut and runtime
-		\end{itemize}
-	\end{block}
-\end{frame}
-
-\begin{frame}{Uncoarsening phase}
-	\begin{block}{First article}
-		BKLGR :
-		\begin{itemize}
-			\item Good balance between small edge-cut and fast execution
-		\end{itemize}
-	\end{block}
-	\begin{block}{Second article}
-		kGR and kGKLR :
-		\begin{itemize}
-			\item similar edge-cut
-			\item kGKLR requires up to 2 times more time
-		\end{itemize}
-	\end{block}
-	\begin{block}{Third article}
-		BKLGR :
-		\begin{itemize}
-			\item Good balance between small edge-cut and fast execution
-		\end{itemize}
-	\end{block}
-\end{frame}
-
-
-% All of the following is optional and typically not needed. 
-\appendix
-\section<presentation>*{\appendixname}
-\subsection<presentation>*{References}
-
-\begin{frame}[allowframebreaks]
-  \frametitle<presentation>{References}
-    
-  \begin{thebibliography}{10}
-        
-  \beamertemplatearticlebibitems
-  % Followed by interesting articles. Keep the list short. 
-
-  \bibitem{Someone2000}
-    G.~Karipys and V.~Kumar
-    \newblock Multilevel graph partitioning schemes.
-  
-  \bibitem{Someone2000}
-    G.~Karipys and V.~Kumar
-    \newblock Multilevel k-way partitioning schemes for irregular graphs.
-
-  \bibitem{Someone2000}
-    G.~Karipys and V.~Kumar
-    \newblock A fast and high quality multilevel schemes for partitioning irregular graphs.
-
-  \end{thebibliography}
-\end{frame}
-
+	\end{frame}
+	\author[G.~Perez Bada]{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
+	\section{Uncoarsening}
+	\begin{frame}{Uncoarsening}
+		\begin{block}{Definition}
+			Projects the partition \(P_{m}\) of the coarser graph to the original \\
+			Goes step by step using \(G_{m-1}~G_{m-2}~...~G_1\) \\
+			\(P_i~is~obtained~from~P_{i+1}\) by assigning the vertices collapsed from \(G_i\)\\
+		\end{block}
+		\begin{block}{Refinement algorithm}
+			When obtaining \(P_i\), there are some degrees of freedom for distributing the unfolded nodes\\
+			The way to distribute the nodes can boost the partitioning quality
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Kernighan-Lin Refinement}
+		\begin{block}{Base Principle}
+			Being a graph split in partitions A and B, we select
+			\[A'\subset A~and~B'\subset B~so~that~A\setminus A'\cup B~and~B\setminus B'\cup A\]\\
+			Is a bisection with smaller edge cut count
+		\end{block}
+		\begin{block}{Key Concepts}
+			\begin{itemize}
+				\item Gain - Number of edge cuts decreased by swapping the vertex v
+				\item Vertex move max (X) - Number of pointless iterations needed for the algorithm to stop
+			\end{itemize}
+		\end{block}
+		\begin{block}{Algorithm Quality}
+			\begin{itemize}
+				\item Gain Computation - On which vertices will the gain be computed in each iteration
+				\item Data Structure - For storing data relative to each vertex
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	\begin{frame}{Refinement Methods}
+		\begin{block}{Kernighan-Lin Refinement - KLR}
+			Uses the partition obtained for \(G_{i+1}\) as the initial iteration partition for \(G_{i}\)\\
+			Reaches convergence in less iterations (Usually around five)\\
+			Low number of vertex swaps
+		\end{block}
+		\begin{block}{Greedy Refinement - GR}
+			Modification of KLR taking into account that most of the progress is done in the first iteration\\
+			Performs a single iteration for each partition step\\
+			Reduced computation time
+		\end{block}
+	\end{frame}
+	\begin{frame}{Refinement Methods}	
+		\begin{block}{Boundary Refinement}
+			Only take into account boundary vertices\\
+			If a vertex is swapped, recalculate adjacent gains and update them to boundary if needed		
+			\begin{itemize}
+				\item \textbf{Greedy - BGR} - Performs a single iteration
+				\item \textbf{Kernighan-Lin - BKLR} - Iteration number defined by accuracy
+				\item \textbf{Hybrid - BKLGR} - Uses BKLR for small graphs and BGR for bigger ones
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	\begin{frame}{K-way Refinement Methods}
+		The complexity of the KL algorithm increases when using more than 2 partitions \\
+		\textbf{Neighborhood N(v)} - The external partitions connected to each vertex\\
+		\textbf{Load Balancing condition} - Minimum and maximum work loads are assigned for every partition\\
+		\textbf{Priority lists} - \(k*(k-1)\) 
+		\begin{block}{K-way Greedy Refinement - kGR}
+			Eliminates lookahead - Vertex cluster swapping\\
+			No need for priority lists
+		\end{block}
+		\begin{block}{K-way Global LR Refinement - kGKLR}
+			Fixes the local minima nature of the algorithm with a global priority queue\\
+			Each vertex with at least one non-negative gain gets added to the queue and it is swapped to the partition with
+			the highest gain that addresses the Load Balancing Condition 
+		\end{block}
+	\end{frame}
+	\author[Q.~Diaferia]{Q.~Diaferia \and T.~Levasseur \and W.~Pei \and G.~Perez Bada}
+	\section{Results}
+	
+	\begin{frame}{Coarsening phase}
+		\begin{block}{First article}
+			HEM :
+			\begin{itemize}
+				\item Good initial partition, smaller edge-cut, little refinement
+				\item Requires more time
+			\end{itemize}
+		\end{block}
+		\begin{block}{Second article}
+			HEM :
+			\begin{itemize}
+				\item Good initial partition, smallest overall runtime
+			\end{itemize}
+			HEM* :
+			\begin{itemize}
+				\item Better for finite element meshes
+			\end{itemize}
+		\end{block}
+		\begin{block}{Third article}
+			HEM :
+			\begin{itemize}
+				\item Good initial partition, smallest overall runtime
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Initial partitioning phase}
+		\begin{block}{First and third articles}
+			GGGP :
+			\begin{itemize}
+				\item Smaller edge-cut and runtime
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	\begin{frame}{Uncoarsening phase}
+		\begin{block}{First article}
+			BKLGR :
+			\begin{itemize}
+				\item Good balance between small edge-cut and fast execution
+			\end{itemize}
+		\end{block}
+		\begin{block}{Second article}
+			kGR and kGKLR :
+			\begin{itemize}
+				\item similar edge-cut
+				\item kGKLR requires up to 2 times more time
+			\end{itemize}
+		\end{block}
+		\begin{block}{Third article}
+			BKLGR :
+			\begin{itemize}
+				\item Good balance between small edge-cut and fast execution
+			\end{itemize}
+		\end{block}
+	\end{frame}
+	
+	
+	% All of the following is optional and typically not needed. 
+	\appendix
+	\section<presentation>*{\appendixname}
+	\subsection<presentation>*{References}
+	
+	\begin{frame}[allowframebreaks]
+		\frametitle<presentation>{References}
+		
+		\begin{thebibliography}{10}
+			
+			\beamertemplatearticlebibitems
+			% Followed by interesting articles. Keep the list short. 
+			
+			\bibitem{Someone2000}
+			G.~Karipys and V.~Kumar
+			\newblock Multilevel graph partitioning schemes.
+			
+			\bibitem{Someone2000}
+			G.~Karipys and V.~Kumar
+			\newblock Multilevel k-way partitioning schemes for irregular graphs.
+			
+			\bibitem{Someone2000}
+			G.~Karipys and V.~Kumar
+			\newblock A fast and high quality multilevel schemes for partitioning irregular graphs.
+			
+		\end{thebibliography}
+	\end{frame}
+	
 \end{document}
