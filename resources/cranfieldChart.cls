@@ -105,3 +105,16 @@ Thibaud Levasseur]
 	\newpage
 }
 
+\newcommand{\maketitleSimple}{%
+	\null
+	\vskip 2em%
+	\begin{center}%
+	\let \footnote \thanks
+    {\LARGE Meeting report \par}%
+    \vskip 1.5em%
+    %{\large #1}%
+  \end{center}%
+  \par
+}
+\renewcommand{\labelitemi}{--}
+
