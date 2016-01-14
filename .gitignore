@@ -12,7 +12,7 @@
 *.nav
 *.out
 *.pdf
-
+*.bib
 main-blx.bib
 # Windows image file caches
 Thumbs.db
