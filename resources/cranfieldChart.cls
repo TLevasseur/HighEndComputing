@@ -93,7 +93,7 @@ Thibaud Levasseur]
 		\put(-70,300){
 			\begin{minipage}[t]{90mm}
 				\color{Cranfield_PrussianBlue}\Huge \helvetica{#1}
-				\paragraph{}
+				\\
 				\Large \helvetica{#2}
 			\end{minipage}
 		}
