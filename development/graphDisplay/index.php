@@ -1,13 +1,50 @@
-<?php
-$txt_file    = file_get_contents('small.graph');
-$rows        = explode("\n", $txt_file);
-$N =explode(" ",array_shift($rows))[0];
-?> 
 <head>
  <meta charset="UTF-8">
 </head>
 
-<!-- START SIGMA IMPORTS -->
+
+
+
+
+<?php
+
+
+$txt_file    = file_get_contents('small.graph');
+$rows        = explode("\n", $txt_file);
+$N =intval(explode(" ",array_shift($rows))[0]);
+$Nodes=[];
+
+//Initial Set
+for($i=1;$i<=$N;$i++){
+    $edges=[];
+    $explodedLine=explode(" ",array_shift($rows));
+    for($j=count($explodedLine)-1; $j>0; $j--)
+        array_push($edges, intval($explodedLine[$j]));
+    unset($edges[0]);
+    $Nodes[$i]=$edges;
+}
+
+while(count($Nodes)>1000){
+	$key=array_rand($Nodes);
+	$key2=$Nodes[$key][array_rand($Nodes[$key])];
+	foreach ($Nodes[$key2] as $k => $v) {
+		//$Nodes[$v][array_search($key2, $Nodes[$v])]=$key;
+		foreach ($Nodes[$v] as $k2 => $v2) {
+			if($v2==$key2) $Nodes[$v][$k2]=$key;
+		}
+	}
+	$Nodes[$key]=array_unique(array_merge($Nodes[$key],$Nodes[$key2]),SORT_NUMERIC);
+	foreach ($Nodes[$key] as $k => $v){
+		if($v==$key || $v == $key2) unset($Nodes[$key][$k]);
+	}
+	unset($Nodes[$key2]);
+
+	//echo count($Nodes);
+	//echo "<br>";
+}
+
+?>
+
 <script src="src/sigma.core.js"></script>
 <script src="src/conrad.js"></script>
 <script src="src/utils/sigma.utils.js"></script>
@@ -82,9 +119,9 @@ $N =explode(" ",array_shift($rows))[0];
 var i,
     s,
     o,
-    N = 1500,
-    E = 5000,
-    C = 1,
+    N = 15000,
+    E = 45000,
+    C = 5,
     d = 0.5,
     cs = [],
     g = {
@@ -102,38 +139,21 @@ for (i = 0; i < C; i++)
     ).substr(0, 6)
   });
 
-for (i = 1; i <<?php echo $N+1; ?>; i++) {
-  o = cs[(Math.random() * C) | 0];
-  g.nodes.push({
-    id: i,
-    x: 100 * Math.cos(2 * i * Math.PI / N),
-    y: 100 * Math.sin(2 * i * Math.PI / N),
-    size: 0.0001,
-    color: o.color
-  });
-  o.nodes.push('n' + i);
-}
-
-
 <?php
-$i=1;
-foreach($rows as $row => $data)
-{
-    $edges=explode(" ",array_shift($rows));
-    array_shift($edges);
-    array_pop($edges);
-    foreach ($edges as $edge) {
-      echo 'g.edges.push({id:';
-      echo $i;
-      echo ',source: ';
-      echo $row+1;
-      echo ',target: ';
-      echo $edge;
-      echo '});';
-      $i++;
-    }
+foreach ($Nodes as $id => $n)
+	echo("g.nodes.push({id:".$id.",
+	 		label:".$id.",
+	 		x:Math.random()*100,
+	 		y:Math.random()*100,
+	 		size:0.1,
+	 		color:cs[0].color});
+			");
+?><?php
+foreach ($Nodes as $id => $n)
+	foreach ($Nodes[$id] as $k => $v) {
+	echo("g.edges.push({id:".$id."000000".$k.",source:".$id.",target:".$v."});");
 }
-?> 
+?>
 
 
 s = new sigma({
