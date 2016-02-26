@@ -24,7 +24,7 @@ for($i=1;$i<=$N;$i++){
     $Nodes[$i]=$edges;
 }
 
-while(count($Nodes)>1000){
+while(count($Nodes)>1500){
 	$key=array_rand($Nodes);
 	$key2=$Nodes[$key][array_rand($Nodes[$key])];
 	foreach ($Nodes[$key2] as $k => $v) {
@@ -42,6 +42,11 @@ while(count($Nodes)>1000){
 	//echo count($Nodes);
 	//echo "<br>";
 }
+
+$txt_file    = file_get_contents('small.graph.part.4');
+$rows        = explode("\n", $txt_file);
+$color=[];
+for($i=0;$i<$N;$i++) $color[$i]=intval($rows[$i]);
 
 ?>
 
@@ -128,9 +133,13 @@ var i,
       nodes: [],
       edges: []
     };
-
+//#337AB7 bleu
+//#F0AD4E jaune
+//#5CB85C vert
+//#D9534F rouge
+//4 first color preselected
 // Generate the graph:
-for (i = 0; i < C; i++)
+for (i = 4; i < C; i++)
   cs.push({
     id: i,
     nodes: [],
@@ -138,7 +147,10 @@ for (i = 0; i < C; i++)
       Math.floor(Math.random() * 16777215).toString(16) + '000000'
     ).substr(0, 6)
   });
-
+  cs[0].color="#337AB7";
+  cs[1].color="#F0AD4E";
+  cs[2].color="#5CB85C";
+  cs[3].color="#D9534F";
 <?php
 foreach ($Nodes as $id => $n)
 	echo("g.nodes.push({id:".$id.",
@@ -146,7 +158,7 @@ foreach ($Nodes as $id => $n)
 	 		x:Math.random()*100,
 	 		y:Math.random()*100,
 	 		size:0.1,
-	 		color:cs[0].color});
+	 		color:cs[".$color[$id-1]."].color});
 			");
 ?><?php
 foreach ($Nodes as $id => $n)
