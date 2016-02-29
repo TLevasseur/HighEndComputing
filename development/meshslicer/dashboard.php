@@ -196,14 +196,15 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                                 Astral Explorer
                             </div>
                             <div class="panel-body" id="dropzone">
-                                <form action="upload-file.php" class="dropzone needsclick" id="demo-upload">
-                                    <ol class="breadcrumb">
-                                      <li><a href="#">.</a></li>
-                                      <li><a href="#">scratch</a></li>
-                                      <li><a href="#"><?php echo $_SESSION["id"]; ?></a></li>
-                                      <li class="active">meshslicer</li>
-                                    </ol>
+                                
+                                <ol class="breadcrumb">
+                                  <li><a href="#">.</a></li>
+                                  <li><a href="#">scratch</a></li>
+                                  <li><a href="#"><?php echo $_SESSION["id"]; ?></a></li>
+                                  <li class="active">meshslicer</li>
+                                </ol>
 
+                                <form action="upload-file.php" class="dropzone needsclick" id="demo-upload">
                                     <table class="table table-hover">
                                         <tr>
                                             <th></th><th style="width:80%">Filename</th><th>Actions</th>
@@ -223,7 +224,7 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                             </div>
                         </div>
 
-                        <div class="panel panel-default">
+                        <!--<div class="panel panel-default">
                             <div class="panel-heading">
                                 Upload a file
                             </div>
@@ -234,9 +235,9 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                                 </div>
                                 <button type="button" class="btn btn-primary">Upload</button>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
-                    <!-- /.col-lg-8 -->
+                    <!-- /.col-lg-7 -->
 
 
                     <div class="col-lg-5">
@@ -288,13 +289,7 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                             </div>
                         </div>
                     </div>
-                    <!-- /.col-lg-2 -->
-                </div>
-                <!-- /.row -->
-
-                <div class="row">
-                    
-                    <!-- /.col-lg-8 -->
+                    <!-- /.col-lg-5 -->
                 </div>
                 <!-- /.row -->
 
