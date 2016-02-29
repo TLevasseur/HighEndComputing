@@ -139,7 +139,7 @@ var i,
 //#D9534F rouge
 //4 first color preselected
 // Generate the graph:
-for (i = 4; i < C; i++)
+for (i = 0; i < C; i++)
   cs.push({
     id: i,
     nodes: [],
@@ -157,7 +157,7 @@ foreach ($Nodes as $id => $n)
 	 		label:".$id.",
 	 		x:Math.random()*100,
 	 		y:Math.random()*100,
-	 		size:0.1,
+	 		size:2,
 	 		color:cs[".$color[$id-1]."].color});
 			");
 ?><?php
@@ -172,7 +172,11 @@ s = new sigma({
   graph: g,
   container: 'graph-container',
   settings: {
-    drawEdges: true
+    drawEdges: true,
+    enableHovering : false,
+    scalingMode : "outside",
+    minArrowSize: 1,
+    zoomMin: 0.0001
   }
 });
 

@@ -87,7 +87,7 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                             <a href="#"><i class="fa fa-power-off  fa-fw"></i> Log out</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-envelope fa-fw"></i> Contact</a>
+                            <a href="contact.php"><i class="fa fa-paper-plane fa-fw"></i> Contact</a>
                         </li>
                     </ul>
                 </div>
