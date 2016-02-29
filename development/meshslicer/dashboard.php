@@ -7,7 +7,7 @@ function trimFile ($str) {
 
 session_start();
 
-/*$ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
+$ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
 if (!$ssh->login($_SESSION["id"], $_SESSION["passwd"])) {
     header("location:signin.php?error=1");
 }
@@ -17,7 +17,7 @@ if(!in_array("meshslicer/", $ls)) {
     $ssh->exec("cd \$w; mkdir meshslicer");
 }
 
-$_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));*/
+$_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
 
 ?>
 
@@ -195,7 +195,7 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                             <div class="panel-heading">
                                 Astral Explorer
                             </div>
-                            <div class="panel-body" id="dropzone">
+                            <div class="panel-body">
                                 
                                 <ol class="breadcrumb">
                                   <li><a href="#">.</a></li>
@@ -204,8 +204,8 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                                   <li class="active">meshslicer</li>
                                 </ol>
 
-                                <form action="upload-file.php" class="dropzone needsclick" id="demo-upload">
-                                    <table class="table table-hover">
+                                <form id="dropzone" action="upload-file.php" class="dropzone needsclick" id="demo-upload">
+                                    <table id="fileListTable" class="table table-hover">
                                         <tr>
                                             <th></th><th style="width:80%">Filename</th><th>Actions</th>
                                         </tr>
@@ -326,8 +326,55 @@ $('.table > tbody > .file').dblclick(function() {
 $('.table > tbody > .folder').dblclick(function() {
     
 });
+Dropzone.options.dropzone = {
+    previewTemplate: "<div id=\"ajax-loader\"><img src=\"img/ajax-loader.gif\" /></div>",
+    init: function() {
+        this.on("success", function(file) {
+            this.element.classList.remove("dz-started");
+            $("#ajax-loader").remove();
 
-$("#dropzone").dropzone({ url: "upload-file.php" });
+            var index = 0;
+            $('#fileListTable tr td:nth-child(2)').each(function(i) {
+                console.log(i + " : " + $(this).text());
+                if($(this).text() > file.name) {
+                    console.log("higher");
+                    index = i;
+                    return false;
+                }
+            });
+
+
+            var rows = $('<tr>');
+            rows.append('<td><i class="fa fa-file-o"></i></td>');
+            rows.append('<td>'+file.name+'</td>');
+            rows.append('<td><i class="fa fa-download"></i> <i class="fa fa-times"></i></td>');
+            rows.hide();
+            $('#fileListTable tr').eq(index).after(rows);
+            rows.fadeIn("slow");
+            /*
+            <tr class="file">
+                <td><i class="fa fa-file-o"></i></td>
+                <td>file name</td>
+                <td><i class="fa fa-download"></i> <i class="fa fa-times"></i></td>
+            </tr>
+            */
+        });
+    },
+    addedfile: function(file) {
+        var _results;
+        if (this.element === this.previewsContainer) {
+            this.element.classList.add("dz-started");
+        }
+        if (this.previewsContainer) {
+            file.previewElement = Dropzone.createElement(this.options.previewTemplate.trim());
+            file.previewTemplate = file.previewElement;
+            this.previewsContainer.appendChild(file.previewElement);
+            return _results;
+        }
+      
+    }
+      
+};
 </script>
 
 </html>
