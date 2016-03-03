@@ -7,7 +7,7 @@ function trimFile ($str) {
 
 session_start();
 
-/*$ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
+$ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
 if (!$ssh->login($_SESSION["id"], $_SESSION["passwd"])) {
     header("location:signin.php?error=1");
 }
@@ -17,8 +17,7 @@ if(!in_array("meshslicer/", $ls)) {
     $ssh->exec("cd \$w; mkdir meshslicer");
 }
 
-$_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));*/
-
+$_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
 ?>
 
 <!DOCTYPE html>
@@ -180,9 +179,6 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                             </div>
                             <div class="panel-body" style="text-align:center">
                                 <!--<img style="width:50%" src="img/graph.png" />-->
-                            </div>
-                            <div class="panel-footer">
-                                Save as : PNG / JPG / TXT
                             </div>
                         </div>
                     </div>
@@ -450,7 +446,23 @@ $(function() {
     });
 
     $('.deleteFile').click(function() {
-        alert("Are you sure ?");
+        var element = $(this);
+        element.removeClass("fa-times").addClass("downloading");
+        element.prev().hide();
+        $.ajax({
+            url: 'delete-file.php',
+            type: 'GET',
+            data: 'file=' + element.parent().prev().text(),
+            success: function(response) {
+                var tabElement = eval("(" + response + ")");
+                if (tabElement.Error == '1') {
+                    alert(tabElement.Message);
+                }
+                else {
+                    var row = element.parent().parent().fadeOut('slow');
+                }
+            }
+        });
     });
 });
 </script>
