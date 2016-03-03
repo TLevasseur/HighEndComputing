@@ -241,55 +241,260 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
 
 
                     <div class="col-lg-5">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Settings
+                        <ul class="nav nav-pills nav-justified">
+                            <li class= active><a data-toggle="pill" href="#graphset">Partition a graph</a></li>
+                            <li><a data-toggle="pill" href="#meshset">Partition a mesh</a></li>
+                        </ul>
+                        <div class="tab-content">   
+                            <div id="meshset" class="tab-pane fade" name="mode" value="0">
+                                <ul class="nav nav-tabs nav-justified">
+                                    <li class= active><a data-toggle="tab" href="#meshmenu1">Recursive Bisection</a></li>
+                                    <li><a data-toggle="tab" href="#meshmenu2">K-way Partition</a></li>
+                                </ul>
+                          
+                                <div class="tab-content">
+                                    <div id="meshmenu1" class="tab-pane fade in active" name="ptype" value="0">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="form-group">
+                                                    <label>Mesh type</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="gtype0" id="optionsRadios1" value="0" checked>Dual Graph
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="gtype0" id="optionsRadios2" value="1">Nodal Graph
+                                                        </label>
+                                                    </div>
+                                                </div>      
+                                                <div class="form-group">
+                                                    <label>Coarsening method</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="ctype1" id="optionsRadios1" value="0" checked>Random matching
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="ctype1" id="optionsRadios2" value="1">Heavy edge matching
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Initial Partition</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="iptype" id="optionsRadios1" value="0" checked>Greedy Bisectioning
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="iptype" id="optionsRadios2" value="1">Random bisection + Refinement
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="ufactor">Maximum imbalance factor x:</label>
+                                                    <input type="number" min="1" max="1000" value="1" class="form-control" id="ufactor"></input>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nparts">Number of partitions</label>
+                                                    <input type="number" min="10" value="2" class="form-control" id="nparts"></input>
+                                                </div>
+                                                <button type="button" class="btn btn-primary">Update</button>
+                                            </div>
+                                        </div>
+                                    <!--menu1-->
+                                    </div>
+                                    <div id="meshmenu2" class="tab-pane fade" name="ptype" value="1">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">     
+                                                <div class="form-group">
+                                                    <label>Mesh type</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="gtype" id="optionsRadios1" value="0" checked>Dual Graph
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="gtype" id="optionsRadios2" value="1">Nodal Graph
+                                                        </label>
+                                                    </div>
+                                                </div>     
+                                                <div class="form-group">
+                                                    <label>Partition Objective</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="objtype" id="optionsRadios1" value="0" checked>Edgecut minimization
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="objtype" id="optionsRadios2" value="1">Communication minimization
+                                                        </label>
+                                                    </div>
+                                                </div>  
+                                                <div class="form-group">
+                                                    <label>Coarsening method</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="ctype" id="optionsRadios1" value="0" checked>Random matching
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="ctype" id="optionsRadios2" value="1">Heavy edge matching
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Reduction system</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="contig" id="optionsRadios1" value="0" checked>Default
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="contig" id="optionsRadios2" value="1">Contiguous Reduction
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="ufactor">Maximum imbalance factor x:</label>
+                                                    <input type="number" min="1" max="1000" value="1" class="form-control" id="ufactor"></input>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nparts">Number of partitions</label>
+                                                    <input type="number" min="10" value="2" class="form-control" id="nparts"></input>
+                                                </div>
+                                                <button type="button" class="btn btn-primary">Update</button>
+                                            </div>
+                                        </div>
+                                    <!--menu2-->
+                                    </div>
+                                <!--tab-content-->
+                                </div>
+                            <!--graphset-->
                             </div>
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <label>Coarsening method</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="coarse" id="optionsRadios1" value="option1" checked>Random matching
-                                        </label>
+                            
+                        <div id="graphset" class="tab-pane fade in active" name="mode" value="1">
+                                <ul class="nav nav-tabs nav-justified">
+                                    <li class= active><a data-toggle="tab" href="#graphmenu1">Recursive Bisection</a></li>
+                                    <li><a data-toggle="tab" href="#graphmenu2">K-way Partition</a></li>
+                                </ul>
+                          
+                                <div class="tab-content">
+                                    <div id="graphmenu1" class="tab-pane fade in active" name="ptype" value="0">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">     
+                                                <div class="form-group">
+                                                    <label>Coarsening method</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="ctype1" id="optionsRadios1" value="0" checked>Random matching
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="ctype1" id="optionsRadios2" value="1">Heavy edge matching
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Initial Partition</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="iptype" id="optionsRadios1" value="0" checked>Greedy Bisectioning
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="iptype" id="optionsRadios2" value="1">Random bisection + Refinement
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="ufactor">Maximum imbalance factor x:</label>
+                                                    <input type="number" min="1" max="1000" value="1" class="form-control" id="ufactor"></input>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nparts">Number of partitions</label>
+                                                    <input type="number" min="10" value="2" class="form-control" id="nparts"></input>
+                                                </div>
+                                                <button type="button" class="btn btn-primary">Update</button>
+                                            </div>
+                                        </div>
+                                    <!--menu1-->
                                     </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="coarse" id="optionsRadios2" value="option2">Heavy edge matching
-                                        </label>
+                                    <div id="graphmenu2" class="tab-pane fade" name="ptype" value="1">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">     
+                                                <div class="form-group">
+                                                    <label>Partition Objective</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="objtype" id="optionsRadios1" value="0" checked>Edgecut minimization
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="objtype" id="optionsRadios2" value="1">Communication minimization
+                                                        </label>
+                                                    </div>
+                                                </div>  
+                                                <div class="form-group">
+                                                    <label>Coarsening method</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="ctype" id="optionsRadios1" value="0" checked>Random matching
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="ctype" id="optionsRadios2" value="1">Heavy edge matching
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Reduction system</label>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="contig" id="optionsRadios1" value="0" checked>Default
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="contig" id="optionsRadios2" value="1">Contiguous Reduction
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="ufactor">Maximum imbalance factor x:</label>
+                                                    <input type="number" min="1" max="1000" value="1" class="form-control" id="ufactor"></input>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nparts">Number of partitions</label>
+                                                    <input type="number" min="10" value="2" class="form-control" id="nparts"></input>
+                                                </div>
+                                                <button type="button" class="btn btn-primary">Update</button>
+                                            </div>
+                                        </div>
+                                    <!--menu2-->
                                     </div>
+                                <!--tab-content-->
                                 </div>
-                                <div class="form-group">
-                                    <label>Partitioning method</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="partition" id="optionsRadios1" value="option1" checked>Bisectioning
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="partition" id="optionsRadios2" value="option2">K-way partioning
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Minimization</label>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="minim" id="optionsRadios1" value="option1" checked>Edge-cut
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="minim" id="optionsRadios2" value="option2">Volume
-                                        </label>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-primary">Update</button>
+                            <!--meshset-->
                             </div>
-                        </div>
+                        <!--tab-content-->  
+                        </div>                
+
                     </div>
-                    <!-- /.col-lg-5 -->
+
+
                 </div>
                 <!-- /.row -->
 
