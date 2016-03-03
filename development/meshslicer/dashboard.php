@@ -6,7 +6,7 @@ function trimFile ($str) {
 
 session_start();
 
-if(!isset($_SESSION['fileList'])) {
+if(isset($_SESSION['login'])) {
 
     $ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
     if (!$ssh->login($_SESSION["id"], $_SESSION["passwd"])) {
@@ -18,8 +18,8 @@ if(!isset($_SESSION['fileList'])) {
         $ssh->exec("cd \$w; mkdir meshslicer; cd meshslicer; mkdir conf");
     }
 
-
     $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
+    unset($_SESSION["login"]);
 }
 
 ?>

@@ -12,7 +12,7 @@ if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
 
 	$reply = json_encode(array('Error' => '0', 'Message' => ""));
 
-	unset($_SESSION[array_search($file, $_SESSION['fileList'])]);
+	unset($_SESSION['fileList'][array_search($file, $_SESSION['fileList'])]);
 
 }
 else { 
