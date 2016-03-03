@@ -321,30 +321,30 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                         function graphClick(){
                             $('#graph').addClass('active');
                             $('#mesh').removeClass('active');
-                            $('#method').css("display","block");
-                            $( ".mesh-only" ).css("display","none");
+                            $('#method').show();
+                            $( ".mesh-only" ).hide();
                         }
                         function meshClick(){
                             $('#mesh').addClass('active');
                             $('#graph').removeClass('active');
-                            $('#method').css("display","block");
-                            $( ".mesh-only" ).css("display","block");
+                            $('#method').show();
+                            $( ".mesh-only" ).show();
                         }
 
                         function bisectionClick(){
                             $('#bisection').addClass('active');
                             $('#kway').removeClass('active');
-                            $('#furtherOption').css("display","block");
-                            $( ".kway-only" ).css("display","none");
-                            $( ".bisection-only" ).css("display","block");
+                            $('#furtherOption').show();
+                            $( ".kway-only" ).hide();
+                            $( ".bisection-only" ).show()
                         }
 
                         function kwayClick(){
                             $('#kway').addClass('active');
                             $('#bisection').removeClass('active');
-                            $('#furtherOption').css("display","block");
-                            $( ".kway-only" ).css("display","block");
-                            $( ".bisection-only" ).css("display","none");
+                            $('#furtherOption').show();
+                            $( ".kway-only" ).show();
+                            $( ".bisection-only" ).hide();
                         }
 
                         </script>
