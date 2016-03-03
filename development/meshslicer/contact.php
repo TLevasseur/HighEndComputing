@@ -90,7 +90,7 @@ session_start();
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    Any question or remak ? Feel free to <a href="mailto:meshslicer@gmail.com">send us a message </a>!
+                    Any question or remark ? Feel free to <a href="mailto:meshslicer@gmail.com">send us a message </a>!
  
                 </div>
             </div>
