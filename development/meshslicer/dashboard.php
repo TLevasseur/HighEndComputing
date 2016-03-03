@@ -7,7 +7,7 @@ function trimFile ($str) {
 
 session_start();
 
-$ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
+/*$ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
 if (!$ssh->login($_SESSION["id"], $_SESSION["passwd"])) {
     header("location:signin.php?error=1");
 }
@@ -17,7 +17,7 @@ if(!in_array("meshslicer/", $ls)) {
     $ssh->exec("cd \$w; mkdir meshslicer");
 }
 
-$_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
+$_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));*/
 
 ?>
 
@@ -435,9 +435,16 @@ $(function() {
             url: 'download.php',
             type: 'GET',
             data: 'file=' + element.parent().prev().text(),
-            complete: function() {
-                element.removeClass("downloading").addClass("fa-download");
-                element.next().show();
+            success: function(response) {
+                var tabElement = eval("(" + response + ")");
+                if (tabElement.Error == '1') {
+                    alert(tabElement.Message);
+                }
+                else {
+                    element.removeClass("downloading").addClass("fa-download");
+                    element.next().show();
+                    window.open('uploads/'+element.parent().prev().text(), '_blank', null);
+                }
             }
         }); 
     });
