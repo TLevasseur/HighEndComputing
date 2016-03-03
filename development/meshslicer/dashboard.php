@@ -15,7 +15,7 @@ if(!isset($_SESSION['fileList'])) {
 
     $ls = array_filter(explode("\n", $ssh->exec("cd \$w; ls -d *\/")));
     if(!in_array("meshslicer/", $ls)) {
-        $ssh->exec("cd \$w; mkdir meshslicer");
+        $ssh->exec("cd \$w; mkdir meshslicer; cd meshslicer; mkdir conf");
     }
 
 
@@ -337,8 +337,20 @@ if(!isset($_SESSION['fileList'])) {
                                 p.imbalance+" "+
                                 p.nbParts+" "+
                                 p.meshBase;
-                            alert(msg);
-                            
+                             $.ajax({
+                                url: 'configfile.php',
+                                type: 'post',
+                                data: 'str=' + msg,
+                                success: function(response) {
+                                    var tabElement = eval("(" + response + ")");
+                                    if (tabElement.Error == '1') {
+                                        alert(tabElement.Message);
+                                    }
+                                    else {
+                                        
+                                    }
+                                }
+                            }); 
                         });
                         function graphClick(){
                             $('#graph').addClass('active');
