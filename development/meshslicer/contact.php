@@ -64,13 +64,13 @@ session_start();
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="dashboard.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-power-off  fa-fw"></i> Log out</a>
+                            <a href="signin.php?signout=1"><i class="fa fa-power-off  fa-fw"></i> Log out</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-paper-plane fa-fw"></i> Contact</a>
+                            <a href="contact.php"><i class="fa fa-paper-plane fa-fw"></i> Contact</a>
                         </li>
                     </ul>
                 </div>

@@ -10,6 +10,9 @@ if(isset($_POST["inputId"])) {
     header("location:dashboard.php");
 
 }
+if(isset($_GET['signout'])) {
+    session_destroy();
+}
 
 ?>
 
@@ -49,16 +52,18 @@ if(isset($_POST["inputId"])) {
 
             <form class="form-signin" method="post">
                 <h2 class="form-signin-heading">Please sign in</h2>
-                <?php if(isset($_GET["error"])) { echo "Login error"; } ?>
+                <?php 
+                if(isset($_GET["error"])) { 
+                    echo "Login error.";
+                }
+                if(isset($_GET["signout"])) {
+                    echo "Logged out.";
+                }
+                ?>
                 <label for="inputId" class="sr-only">Email address</label>
                 <input type="text" id="inputId" name="inputId" class="form-control" placeholder="ID" required autofocus>
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
-                <div class="checkbox">
-                <label>
-                <input type="checkbox" value="remember-me"> Remember me
-                </label>
-                </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
             </form>
 
