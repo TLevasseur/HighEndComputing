@@ -1,23 +1,26 @@
 <?php
 include('Net/SSH2.php');
-
 function trimFile ($str) {
     return ltrim($str, "./");
 }
 
 session_start();
 
-$ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
-if (!$ssh->login($_SESSION["id"], $_SESSION["passwd"])) {
-    header("location:signin.php?error=1");
+if(!isset($_SESSION['fileList'])) {
+
+    $ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
+    if (!$ssh->login($_SESSION["id"], $_SESSION["passwd"])) {
+        header("location:signin.php?error=1");
+    }
+
+    $ls = array_filter(explode("\n", $ssh->exec("cd \$w; ls -d *\/")));
+    if(!in_array("meshslicer/", $ls)) {
+        $ssh->exec("cd \$w; mkdir meshslicer");
+    }
+
+    $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
 }
 
-$ls = array_filter(explode("\n", $ssh->exec("cd \$w; ls -d *\/")));
-if(!in_array("meshslicer/", $ls)) {
-    $ssh->exec("cd \$w; mkdir meshslicer");
-}
-
-$_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
 ?>
 
 <!DOCTYPE html>
