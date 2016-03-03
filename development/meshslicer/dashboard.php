@@ -63,7 +63,7 @@ if(!isset($_SESSION['fileList'])) {
 </head>
 
 <body>
-    <script>parameters={};</script>
+    <script>p={};</script>
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -319,28 +319,40 @@ if(!isset($_SESSION['fileList'])) {
 
                         <script>
                         $('#submitIniFile').click(function(){
-                            parameters.partitionParam=$('input[name=objtype]:checked').val();
-                            parameters.coarseningSheme=$('input[name=ctype]:checked').val();
-                            parameters.initialPatition=$('input[name=iptype]:checked').val();
-                            parameters.contiguousPartition=$('input[name=contig]:checked').val();
-                            parameters.imbalance=$('input[name=ufactor]:checked').val();
-                            parameters.nbParts=$('input[name=nparts]:checked').val();
-                            parameters.meshBase=$('input[name=gtype]:checked').val();
-                            alert(parameters.toSource());
+                            /*value 3,4,5,*/
+                            p.partitionParam=$('input[name=objtype]:checked').val();
+                            p.coarseningSheme=$('input[name=ctype]:checked').val();
+                            p.initialPatition=$('input[name=iptype]:checked').val();
+                            p.contiguousPartition=$('input[name=contig]:checked').val();
+                            p.imbalance=$('#ufactor').val();
+                            p.nbParts=$('#nparts').val();
+                            p.meshBase=$('input[name=gtype]:checked').val();
+                            msg=p.fileType+" "+
+                                p.partitionMethod+" "+
+                                p.partitionParam+" "+
+                                p.coarseningSheme+" "+
+                                p.initialPatition+" "+
+                                "0 "+
+                                p.contiguousPartition+" "+
+                                p.imbalance+" "+
+                                p.nbParts+" "+
+                                p.meshBase;
+                            alert(msg);
+                            
                         });
                         function graphClick(){
                             $('#graph').addClass('active');
                             $('#mesh').removeClass('active');
                             $('#method').show();
                             $( ".mesh-only" ).hide();
-                            parameters.fileType=0;
+                            p.fileType=0;
                         }
                         function meshClick(){
                             $('#mesh').addClass('active');
                             $('#graph').removeClass('active');
                             $('#method').show();
                             $( ".mesh-only" ).show();
-                            parameters.fileType=1;
+                            p.fileType=1;
                         }
 
                         function bisectionClick(){
@@ -349,7 +361,7 @@ if(!isset($_SESSION['fileList'])) {
                             $('#furtherOption').show();
                             $( ".kway-only" ).hide();
                             $( ".bisection-only" ).show();
-                            parameters.partitionMethod=0;
+                            p.partitionMethod=0;
                         }
 
                         function kwayClick(){
@@ -358,7 +370,7 @@ if(!isset($_SESSION['fileList'])) {
                             $('#furtherOption').show();
                             $( ".kway-only" ).show();
                             $( ".bisection-only" ).hide();
-                            parameters.partitionMethod=1;
+                            p.partitionMethod=1;
                         }
 
                         </script>
