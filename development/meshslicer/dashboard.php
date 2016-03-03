@@ -42,6 +42,7 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
 
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -215,7 +216,7 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                                             <tr class="file">
                                             <td><i class="fa fa-file-o"></i></td><td>';
                                             echo $file;
-                                            echo '</td><td><i class="fa fa-download"></i> <i class="fa fa-times"></i></td>
+                                            echo '</td><td><i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>
                                             </tr>';
                                         }
                                         ?>
@@ -223,19 +224,6 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                                 </form>
                             </div>
                         </div>
-
-                        <!--<div class="panel panel-default">
-                            <div class="panel-heading">
-                                Upload a file
-                            </div>
-                            <div class="panel-body">
-                                 <div class="form-group">
-                                    <label>Choose a file</label>
-                                    <input type="file">
-                                </div>
-                                <button type="button" class="btn btn-primary">Upload</button>
-                            </div>
-                        </div>-->
                     </div>
                     <!-- /.col-lg-7 -->
 
@@ -395,9 +383,6 @@ $('.table > tbody > .file').dblclick(function() {
     this.style.backgroundColor = "#f0f0f0";
 });
 
-$('.table > tbody > .folder').dblclick(function() {
-    
-});
 Dropzone.options.dropzone = {
     previewTemplate: "<div id=\"ajax-loader\"><img src=\"img/ajax-loader.gif\" /></div>",
     init: function() {
@@ -419,17 +404,10 @@ Dropzone.options.dropzone = {
             var rows = $('<tr>');
             rows.append('<td><i class="fa fa-file-o"></i></td>');
             rows.append('<td>'+file.name+'</td>');
-            rows.append('<td><i class="fa fa-download"></i> <i class="fa fa-times"></i></td>');
+            rows.append('<td><i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
             rows.hide();
             $('#fileListTable tr').eq(index).after(rows);
             rows.fadeIn("slow");
-            /*
-            <tr class="file">
-                <td><i class="fa fa-file-o"></i></td>
-                <td>file name</td>
-                <td><i class="fa fa-download"></i> <i class="fa fa-times"></i></td>
-            </tr>
-            */
         });
     },
     addedfile: function(file) {
@@ -443,10 +421,33 @@ Dropzone.options.dropzone = {
             this.previewsContainer.appendChild(file.previewElement);
             return _results;
         }
-      
-    }
-      
+    }   
 };
+
+$(function() {
+    $('.getFile').css('cursor', 'pointer');
+
+    $('.deleteFile').css('cursor', 'pointer');
+
+    $('.getFile').click(function() {
+        var element = $(this);
+        element.removeClass("fa-download").addClass("downloading");
+        element.next().hide();
+        $.ajax({
+            url: 'download.php',
+            type: 'GET',
+            data: 'file=' + element.parent().prev().text(),
+            complete: function() {
+                element.removeClass("downloading").addClass("fa-download");
+                element.next().show();
+            }
+        }); 
+    });
+
+    $('.deleteFile').click(function() {
+        alert("Are you sure ?");
+    });
+});
 </script>
 
 </html>

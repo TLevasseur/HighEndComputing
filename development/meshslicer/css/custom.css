@@ -1,0 +1,5 @@
+.downloading {
+	height: 16px;
+	width: 16px;
+	background-image: url(../img/mini-loader.gif);
+}
