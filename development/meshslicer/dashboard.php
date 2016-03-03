@@ -1,23 +1,27 @@
 <?php
 include('Net/SSH2.php');
-
 function trimFile ($str) {
     return ltrim($str, "./");
 }
 
 session_start();
 
-$ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
-if (!$ssh->login($_SESSION["id"], $_SESSION["passwd"])) {
-    header("location:signin.php?error=1");
+if(!isset($_SESSION['fileList'])) {
+
+    $ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
+    if (!$ssh->login($_SESSION["id"], $_SESSION["passwd"])) {
+        header("location:signin.php?error=1");
+    }
+
+    $ls = array_filter(explode("\n", $ssh->exec("cd \$w; ls -d *\/")));
+    if(!in_array("meshslicer/", $ls)) {
+        $ssh->exec("cd \$w; mkdir meshslicer");
+    }
+
+
+    $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
 }
 
-$ls = array_filter(explode("\n", $ssh->exec("cd \$w; ls -d *\/")));
-if(!in_array("meshslicer/", $ls)) {
-    $ssh->exec("cd \$w; mkdir meshslicer");
-}
-
-$_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
 ?>
 
 <!DOCTYPE html>
@@ -179,9 +183,6 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                             </div>
                             <div class="panel-body" style="text-align:center">
                                 <!--<img style="width:50%" src="img/graph.png" />-->
-                            </div>
-                            <div class="panel-footer">
-                                Save as : PNG / JPG / TXT
                             </div>
                         </div>
                     </div>
@@ -446,18 +447,41 @@ $(function() {
         element.removeClass("fa-download").addClass("downloading");
         element.next().hide();
         $.ajax({
-            url: 'download.php',
+            url: 'download-file.php',
             type: 'GET',
             data: 'file=' + element.parent().prev().text(),
-            complete: function() {
-                element.removeClass("downloading").addClass("fa-download");
-                element.next().show();
+            success: function(response) {
+                var tabElement = eval("(" + response + ")");
+                if (tabElement.Error == '1') {
+                    alert(tabElement.Message);
+                }
+                else {
+                    element.removeClass("downloading").addClass("fa-download");
+                    element.next().show();
+                    window.open('uploads/'+element.parent().prev().text(), '_blank', null);
+                }
             }
         }); 
     });
 
     $('.deleteFile').click(function() {
-        alert("Are you sure ?");
+        var element = $(this);
+        element.removeClass("fa-times").addClass("downloading");
+        element.prev().hide();
+        $.ajax({
+            url: 'delete-file.php',
+            type: 'GET',
+            data: 'file=' + element.parent().prev().text(),
+            success: function(response) {
+                var tabElement = eval("(" + response + ")");
+                if (tabElement.Error == '1') {
+                    alert(tabElement.Message);
+                }
+                else {
+                    var row = element.parent().parent().fadeOut('slow');
+                }
+            }
+        });
     });
 });
 </script>
