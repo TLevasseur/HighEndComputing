@@ -229,92 +229,90 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
 
 
                     <div class="col-lg-5">
-                        <div class="panel panel-default" resizable>
-                             <div class="btn-group col-xs-12" role="group">
-                                <button type="button" class="btn btn-primary col-xs-6" id="graph" onclick="graphClick()">Partition a graph</button>
-                                <button type="button" class="btn btn-primary col-xs-6" id="mesh" onclick="meshClick()">Partition a mesh</button>
-                              </div>
-                              <div class="btn-group col-xs-12" id="method" role="group" style = "display:none">
-                                <button type="button" class="btn btn-secondary col-xs-6" id="bisection" onclick="bisectionClick()">Recursive Bisection</button>
-                                <button type="button" class="btn btn-secondary col-xs-6" id="kway" onclick="kwayClick()">K-way Partition</button>
-                              </div>
-                              <br><br><br><br>
-                                <div class="col-xs-12" id="furtherOption" style = "display:none">
-                                    <div class="form-group mesh-only">
-                                        <label>Mesh Type</label>
-                                            <div class="radio">
-                                            <label>
-                                                <input type="radio" name="gtype0" value="0" checked>Dual Graph
-                                            </label>
-                                        </div>
+                         <div class="btn-group col-xs-12" role="group">
+                            <button type="button" class="btn btn-primary col-xs-6" id="graph" onclick="graphClick()">Partition a graph</button>
+                            <button type="button" class="btn btn-primary col-xs-6" id="mesh" onclick="meshClick()">Partition a mesh</button>
+                          </div>
+                          <div class="btn-group col-xs-12" id="method" role="group" style = "display:none">
+                            <button type="button" class="btn btn-secondary col-xs-6" id="bisection" onclick="bisectionClick()">Recursive Bisection</button>
+                            <button type="button" class="btn btn-secondary col-xs-6" id="kway" onclick="kwayClick()">K-way Partition</button>
+                          </div>
+                          <br><br><br><br>
+                            <div class="col-xs-12" id="furtherOption" style = "display:none">
+                                <div class="form-group mesh-only">
+                                    <label>Mesh Type</label>
                                         <div class="radio">
-                                            <label>
-                                                <input type="radio" name="gtype0" value="1">Nodal Graph
-                                            </label>
-                                        </div>
+                                        <label>
+                                            <input type="radio" name="gtype0" value="0" checked>Dual Graph
+                                        </label>
                                     </div>
-                                    <div class="form-group kway-only">
-                                        <label>Partition Objective</label>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="ctype" value="0">Edgecut minimization
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="ctype" value="1">Communication minimization
-                                            </label>
-                                        </div>
-                                    </div> 
-                                    <div class="form-group">
-                                        <label>Coarsening Method</label>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="ctype" value="0">Random matching
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="ctype" value="1">Heavy edge matching
-                                            </label>
-                                        </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="gtype0" value="1">Nodal Graph
+                                        </label>
                                     </div>
-                                    <div class="form-group bisection-only">
-                                        <label>Initial Partition</label>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="ctype" value="0">Greedy Bisectioning
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="ctype" value="1">Random bisection + Refinement
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group kway-only">
-                                        <label>Reduction system</label>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="ctype" value="0">Default
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="ctype" value="1">Contiguous Reduction
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="ufactor">Maximum imbalance factor x:</label>
-                                        <input type="number" min="1" max="1000" value="1" class="form-control" id="ufactor"></input>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nparts">Number of partitions</label>
-                                        <input type="number" min="10" value="2" class="form-control" id="nparts"></input>
-                                    </div>
-                                    <button type="button" class="btn btn-primary">Update</button>
                                 </div>
+                                <div class="form-group kway-only">
+                                    <label>Partition Objective</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="ctype" value="0">Edgecut minimization
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="ctype" value="1">Communication minimization
+                                        </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label>Coarsening Method</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="ctype" value="0">Random matching
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="ctype" value="1">Heavy edge matching
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group bisection-only">
+                                    <label>Initial Partition</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="ctype" value="0">Greedy Bisectioning
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="ctype" value="1">Random bisection + Refinement
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group kway-only">
+                                    <label>Reduction system</label>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="ctype" value="0">Default
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="ctype" value="1">Contiguous Reduction
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ufactor">Maximum imbalance factor x:</label>
+                                    <input type="number" min="1" max="1000" value="1" class="form-control" id="ufactor"></input>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nparts">Number of partitions</label>
+                                    <input type="number" min="10" value="2" class="form-control" id="nparts"></input>
+                                </div>
+                                <button type="button" class="btn btn-primary">Update</button>
                             </div>
                         </div>
                         <script>
