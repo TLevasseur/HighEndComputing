@@ -432,7 +432,7 @@ $(function() {
         element.removeClass("fa-download").addClass("downloading");
         element.next().hide();
         $.ajax({
-            url: 'download.php',
+            url: 'download-file.php',
             type: 'GET',
             data: 'file=' + element.parent().prev().text(),
             success: function(response) {
