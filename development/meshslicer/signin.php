@@ -51,7 +51,7 @@ if(isset($_GET['signout'])) {
         <div class="container">
 
             <form class="form-signin" method="post">
-                <h2 class="form-signin-heading">Please sign in</h2>
+                <h2 class="form-signin-heading">Sign in to slice things up !</h2>
                 <?php 
                 if(isset($_GET["error"])) { 
                     echo "Login error.";
@@ -65,6 +65,9 @@ if(isset($_GET['signout'])) {
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                <div class="homeLink">
+                    <a href="index.html">Home</a>
+                </a>
             </form>
 
         </div> <!-- /container -->
