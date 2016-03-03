@@ -18,7 +18,6 @@ if(!in_array("meshslicer/", $ls)) {
 }
 
 $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
-
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +59,7 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
 </head>
 
 <body>
-
+    <script>parameters={};</script>
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -243,12 +242,12 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                                     <label>Mesh Type</label>
                                         <div class="radio">
                                         <label>
-                                            <input type="radio" name="gtype0" value="0" checked>Dual Graph
+                                            <input type="radio" name="gtype" value="0" checked>Dual Graph
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="gtype0" value="1">Nodal Graph
+                                            <input type="radio" name="gtype" value="1">Nodal Graph
                                         </label>
                                     </div>
                                 </div>
@@ -256,12 +255,12 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                                     <label>Partition Objective</label>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="ctype" value="0">Edgecut minimization
+                                            <input type="radio" name="objtype" value="0" checked>Edgecut minimization
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="ctype" value="1">Communication minimization
+                                            <input type="radio" name="objtype" value="1">Communication minimization
                                         </label>
                                     </div>
                                 </div> 
@@ -269,7 +268,7 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                                     <label>Coarsening Method</label>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="ctype" value="0">Random matching
+                                            <input type="radio" name="ctype" value="0" checked>Random matching
                                         </label>
                                     </div>
                                     <div class="radio">
@@ -282,25 +281,25 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                                     <label>Initial Partition</label>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="ctype" value="0">Greedy Bisectioning
+                                            <input type="radio" name="iptype" value="0" checked>Greedy Bisectioning
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="ctype" value="1">Random bisection + Refinement
+                                            <input type="radio" name="iptype" value="1">Random bisection + Refinement
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group kway-only">
                                     <label>Reduction system</label>
-                                    <div class="radio">
+                                    <div class="radio" id>
                                         <label>
-                                            <input type="radio" name="ctype" value="0">Default
+                                            <input type="radio" name="contig" value="0" checked>Default
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="ctype" value="1">Contiguous Reduction
+                                            <input type="radio" name="contig" value="1">Contiguous Reduction
                                         </label>
                                     </div>
                                 </div>
@@ -310,23 +309,37 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                                 </div>
                                 <div class="form-group">
                                     <label for="nparts">Number of partitions</label>
-                                    <input type="number" min="10" value="2" class="form-control" id="nparts"></input>
+                                    <input type="number" min="1" value="2" class="form-control" id="nparts"></input>
                                 </div>
-                                <button type="button" class="btn btn-primary">Update</button>
+                                <button type="button" class="btn btn-primary" id="submitIniFile">Update</button>
                             </div>
                         </div>
+                        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
                         <script>
+                        $('#submitIniFile').click(function(){
+                            parameters.partitionParam=$('input[name=objtype]:checked').val();
+                            parameters.coarseningSheme=$('input[name=ctype]:checked').val();
+                            parameters.initialPatition=$('input[name=iptype]:checked').val();
+                            parameters.contiguousPartition=$('input[name=contig]:checked').val();
+                            parameters.imbalance=$('input[name=ufactor]:checked').val();
+                            parameters.nbParts=$('input[name=nparts]:checked').val();
+                            parameters.meshBase=$('input[name=gtype]:checked').val();
+                            alert(parameters.toSource());
+                        });
                         function graphClick(){
                             $('#graph').addClass('active');
                             $('#mesh').removeClass('active');
                             $('#method').show();
                             $( ".mesh-only" ).hide();
+                            parameters.fileType=0;
                         }
                         function meshClick(){
                             $('#mesh').addClass('active');
                             $('#graph').removeClass('active');
                             $('#method').show();
                             $( ".mesh-only" ).show();
+                            parameters.fileType=1;
                         }
 
                         function bisectionClick(){
@@ -334,7 +347,8 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                             $('#kway').removeClass('active');
                             $('#furtherOption').show();
                             $( ".kway-only" ).hide();
-                            $( ".bisection-only" ).show()
+                            $( ".bisection-only" ).show();
+                            parameters.partitionMethod=0;
                         }
 
                         function kwayClick(){
@@ -343,6 +357,7 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
                             $('#furtherOption').show();
                             $( ".kway-only" ).show();
                             $( ".bisection-only" ).hide();
+                            parameters.partitionMethod=1;
                         }
 
                         </script>
@@ -360,7 +375,6 @@ $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->e
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
