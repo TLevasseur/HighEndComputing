@@ -67,7 +67,7 @@ if(isset($_GET['signout'])) {
                 <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                 <div class="homeLink">
-                    <a href="index.html">Home</a>
+                    <a href="index.php">Home</a>
                 </a>
             </form>
 
