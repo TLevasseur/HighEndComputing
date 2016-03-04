@@ -8,7 +8,7 @@ $str = $_POST['str'];
 $sftp = new Net_SFTP('hpclogin-1.central.cranfield.ac.uk');
 if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
 
-	file_put_contents('uploads/config.ini', $str);
+	file_put_contents('uploads/config.ini', $str."\nnone");
 	$sftp->put('/scratch/'.$_SESSION["id"].'/meshslicer/conf/config.ini', 'uploads/config.ini' , NET_SFTP_LOCAL_FILE);
 
 	$reply = json_encode(array('Error' => '0', 'Message' => ""));

@@ -15,8 +15,9 @@ if(isset($_SESSION['login'])) {
 
     $ls = array_filter(explode("\n", $sftp->exec("cd \$w; ls -d *\/")));
     if(!in_array("meshslicer/", $ls)) {
-        $sftp->exec("cd \$w; mkdir meshslicer; cd meshslicer; mkdir conf; cd conf; touch config.ini; echo '0 0 0 0 0 0 0 1 2 0' > config.ini");
+        $sftp->exec("cd \$w; mkdir meshslicer; cd meshslicer; mkdir conf; cd conf; touch config.ini; echo '0 0 0 0 0 0 0 1 2 0\nnone' > config.ini");
         $sftp->put('/scratch/'.$_SESSION["id"].'/meshslicer/conf/StandAlone', 'uploads/StandAlone' , NET_SFTP_LOCAL_FILE);
+        $sftp->exec("cd \$w/meshslicer/conf/; chmod 777 StandAlone");
     }
 
     $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $sftp->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
@@ -628,6 +629,7 @@ $(function() {
     });
     $('.launchPartition').click(function() {
         var fileName = $('input[name=file]:checked', '#dropzone').parent().prev().text();
+        //$(this).
         $.ajax({
             url: 'partition.php',
             type: 'GET',
@@ -638,7 +640,7 @@ $(function() {
                     alert(tabElement.Message);
                 }
                 else {
-                    
+                    alert("ok");
                 }
             }
         });
