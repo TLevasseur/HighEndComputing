@@ -531,6 +531,23 @@ $(function() {
     $('.displayPart').click(function(){
         alert("je suis un graph lol");
     });
+    $('.launchPartition').click(function() {
+        var fileName = $('input[name=file]:checked', '#dropzone').parent().prev().text();
+        $.ajax({
+            url: 'partition.php',
+            type: 'GET',
+            data: 'file=' + fileName,
+            success: function(response) {
+                var tabElement = eval("(" + response + ")");
+                if (tabElement.Error == '1') {
+                    alert(tabElement.Message);
+                }
+                else {
+                    
+                }
+            }
+        });
+    });
 });
 </script>
 
