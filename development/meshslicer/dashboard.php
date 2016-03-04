@@ -476,6 +476,8 @@ function addFileRow(fileName) {
     rows.hide();
     $('#fileListTable tr').eq(index).after(rows);
     rows.fadeIn("slow");
+
+    setEvents();
 }
 Dropzone.options.dropzone = {
     previewTemplate: '<div id="ajax-loader"><img src="img/ajax-loader.gif" /></div>',
@@ -502,7 +504,8 @@ Dropzone.options.dropzone = {
     }   
 };
 
-$(function() {
+
+function setEvents() {
     $('.launchPartition').css('cursor', 'pointer');
 
     $('.getFile').css('cursor', 'pointer');
@@ -667,7 +670,12 @@ $(function() {
             });
         }
     });
-});
+}
+
+$(function() {
+   setEvents(); 
+})
+
 </script>
 <script src="src/sigma.core.js"></script>
 <script src="src/conrad.js"></script>
