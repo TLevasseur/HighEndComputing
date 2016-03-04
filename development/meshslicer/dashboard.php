@@ -232,7 +232,18 @@ if(isset($_SESSION['login'])) {
                                 </form>
                             </div>
                         </div>
+                        <div class="panel panel-red">
+                            <div class="panel-heading launchPartition">
+                                <div class="row">
+                                    <div class="col-xs-12 text-center">
+                                        <div class="huge">Launch partitioning <i class="fa fa-cut"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    
                     <!-- /.col-lg-7 -->
 
 
@@ -396,6 +407,8 @@ if(isset($_SESSION['login'])) {
                         </script>
                     </div>
                     <!-- /.col-lg-5 -->
+
+
                 </div>
                 <!-- /.row -->
 
@@ -465,6 +478,8 @@ Dropzone.options.dropzone = {
 };
 
 $(function() {
+    $('.launchPartition').css('cursor', 'pointer');
+
     $('.getFile').css('cursor', 'pointer');
 
     $('.deleteFile').css('cursor', 'pointer');
