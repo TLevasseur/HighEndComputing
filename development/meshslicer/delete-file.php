@@ -17,7 +17,7 @@ if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
 
 }
 else { 
-	$reply = json_encode(array('Error' => '1', 'Message' => "Astral problem. Please try again."));
+	$reply = json_encode(array('Error' => '1', 'Message' => 'Astral problem. Please try again.'));
 }
 
 echo $reply;

@@ -247,13 +247,18 @@ if(isset($_SESSION['login'])) {
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-red">
-                            <div class="panel-heading launchPartition">
+                        <div class="panel panel-red launchPartition">
+                            <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-12 text-center">
                                         <div class="huge">Launch partitioning <i class="fa fa-cut"></i></div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="panel loadPartition" style="display:none;">
+                            <div class="panel-body">
+                                <img src="img/ajax-loader.gif" />
                             </div>
                         </div>
                     </div>
@@ -451,31 +456,36 @@ if(isset($_SESSION['login'])) {
 </body>
 
 <script>
+function addFileRow(fileName) {
+    var index = 0;
+    /*$('#fileListTable tr td:nth-child(2)').each(function(i) {
+        if($(this).text() > fileName) {
+            index = i;
+            return false;
+        }
+        index = i;
+    });*/
+    index = $('#fileListTable tr td:nth-child(2)').length;
+
+    console.log(index);
+
+    var rows = $('<tr>');
+    rows.append('<td><i class="fa fa-file-o"></i></td>');
+    rows.append('<td>'+fileName+'</td>');
+    rows.append('<td><input type="radio" name="file" value="0">  <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
+    rows.hide();
+    $('#fileListTable tr').eq(index).after(rows);
+    rows.fadeIn("slow");
+}
 Dropzone.options.dropzone = {
-    previewTemplate: "<div id=\"ajax-loader\"><img src=\"img/ajax-loader.gif\" /></div>",
+    previewTemplate: '<div id="ajax-loader"><img src="img/ajax-loader.gif" /></div>',
     init: function() {
         this.on("success", function(file) {
             this.element.classList.remove("dz-started");
             $("#ajax-loader").remove();
 
-            var index = 0;
-            $('#fileListTable tr td:nth-child(2)').each(function(i) {
-                console.log(i + " : " + $(this).text());
-                if($(this).text() > file.name) {
-                    console.log("higher");
-                    index = i;
-                    return false;
-                }
-            });
-
-
-            var rows = $('<tr>');
-            rows.append('<td><i class="fa fa-file-o"></i></td>');
-            rows.append('<td>'+file.name+'</td>');
-            rows.append('<td><input type="radio" name="file" value="0">  <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
-            rows.hide();
-            $('#fileListTable tr').eq(index).after(rows);
-            rows.fadeIn("slow");
+            addFileRow(file.name);
+            
         });
     },
     addedfile: function(file) {
@@ -624,21 +634,38 @@ $(function() {
     });
     $('.launchPartition').click(function() {
         var fileName = $('input[name=file]:checked', '#dropzone').parent().prev().text();
-        //$(this).
-        $.ajax({
-            url: 'partition.php',
-            type: 'GET',
-            data: 'file=' + fileName,
-            success: function(response) {
-                var tabElement = eval("(" + response + ")");
-                if (tabElement.Error == '1') {
-                    alert(tabElement.Message);
+        if (fileName == '') {
+            alert("No graph/mesh file selected.");
+        }
+        else {
+            var element = $(this);
+            element.hide();
+            element.next().show();
+            $.ajax({
+                url: 'partition.php',
+                type: 'GET',
+                data: 'file=' + fileName,
+                success: function(response) {
+                    var tabElement = eval("(" + response + ")");
+                    if (tabElement.Error == '1') {
+                        alert(tabElement.Message);
+                    }
+                    else {
+                        element.next().hide();
+                        element.show();
+                        console.log(fileName);
+                        var reg = /.mesh$/;
+                        if(reg.test(fileName)) {
+                            addFileRow(fileName + '.eoutput.csr');
+                            addFileRow(fileName + '.noutput.csr');
+                        }
+                        /*else if () {
+                            addFileRow();
+                        }*/
+                    }
                 }
-                else {
-                    alert("ok");
-                }
-            }
-        });
+            });
+        }
     });
 });
 </script>
