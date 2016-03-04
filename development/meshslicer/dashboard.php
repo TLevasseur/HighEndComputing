@@ -112,7 +112,7 @@ if(isset($_SESSION['login'])) {
                 <!-- /.row -->
 
                 <div class="row">
-                     <div class="col-lg-3 col-md-6">
+                     <div class="col-lg-4 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
@@ -127,8 +127,8 @@ if(isset($_SESSION['login'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
+                    <!--<div class="col-lg-4 col-md-6">
+                        <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -141,9 +141,9 @@ if(isset($_SESSION['login'])) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
+                    </div>-->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-green">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -157,8 +157,8 @@ if(isset($_SESSION['login'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="panel panel-yellow">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -472,6 +472,7 @@ $(function() {
         var element = $(this);
         element.removeClass("fa-download").addClass("downloading");
         element.next().hide();
+        element.prev().hide();
         $.ajax({
             url: 'download-file.php',
             type: 'GET',
@@ -484,6 +485,7 @@ $(function() {
                 else {
                     element.removeClass("downloading").addClass("fa-download");
                     element.next().show();
+                    element.prev().show();
                     window.open('uploads/'+element.parent().prev().text(), '_blank', null);
                 }
             }
@@ -494,6 +496,7 @@ $(function() {
         var element = $(this);
         element.removeClass("fa-times").addClass("downloading");
         element.prev().hide();
+        element.prev().prev().hide();
         $.ajax({
             url: 'delete-file.php',
             type: 'GET',
