@@ -1,0 +1,31 @@
+******************************************************************************
+METIS 5.0 Copyright 1998-13, Regents of the University of Minnesota
+ (HEAD: , Built on: Oct  9 2013, 14:41:09)
+ size of idx_t: 32bits, real_t: 32bits, idx_t *: 64bits
+
+Mesh Information ------------------------------------------------------------
+ Name: data.csr, #Elements: 7434, #Nodes: 4038, #Parts: 25
+
+Options ---------------------------------------------------------------------
+ ptype=kway, objtype=cut, ctype=rm, rtype=greedy, iptype=metisrb
+ dbglvl=0, ufactor=1.010, minconn=NO, contig=NO, nooutput=NO
+ seed=-1, niter=10, ncuts=1
+ gtype=dual, ncommon=1, niter=10, ncuts=1
+
+Direct k-way Partitioning ---------------------------------------------------
+ - Edgecut: 2486.
+
+
+Timing Information ----------------------------------------------------------
+  I/O:          		   0.008 sec
+  Partitioning: 		   0.028 sec   (METIS time)
+  Reporting:    		   0.000 sec
+
+Memory Information ----------------------------------------------------------
+  Max memory used:		   1.439 MB
+******************************************************************************
+10001010250
+
+Configuration file: data.csr
+1 1 0 0 0 1 0 10 25 0 
+mpmetis -ptype=kway -objtype=cut -ctype=rm -iptype=grow -ufactor=10 -gtype=dual data.csr 25

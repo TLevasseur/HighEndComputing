@@ -1,0 +1,26 @@
+******************************************************************************
+METIS 5.0 Copyright 1998-13, Regents of the University of Minnesota
+ (HEAD: , Built on: Oct  9 2013, 14:41:09)
+ size of idx_t: 32bits, real_t: 32bits, idx_t *: 64bits
+
+Mesh Information ------------------------------------------------------------
+ Name: data.csr, #Elements: 7434, #Nodes: 4038, #Parts: 25
+
+Options ---------------------------------------------------------------------
+ ptype=rb, objtype=cut, ctype=rm, rtype=fm, iptype=random
+ dbglvl=0, ufactor=1.010, minconn=NO, contig=NO, nooutput=NO
+ seed=-1, niter=10, ncuts=1
+ gtype=nodal, ncommon=1, niter=10, ncuts=1
+
+Recursive Partitioning ------------------------------------------------------
+ - Edgecut: 709.
+
+
+Timing Information ----------------------------------------------------------
+  I/O:          		   0.008 sec
+  Partitioning: 		   0.008 sec   (METIS time)
+  Reporting:    		   0.000 sec
+
+Memory Information ----------------------------------------------------------
+  Max memory used:		   0.579 MB
+******************************************************************************

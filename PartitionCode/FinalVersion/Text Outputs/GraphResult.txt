@@ -1,0 +1,36 @@
+******************************************************************************
+METIS 5.0 Copyright 1998-13, Regents of the University of Minnesota
+ (HEAD: , Built on: Oct  9 2013, 14:41:03)
+ size of idx_t: 32bits, real_t: 32bits, idx_t *: 64bits
+
+Graph Information -----------------------------------------------------------
+ Name: small.graph, #Vertices: 15606, #Edges: 45878, #Parts: 25
+
+Options ---------------------------------------------------------------------
+ ptype=rb, objtype=cut, ctype=rm, rtype=fm, iptype=random
+ dbglvl=0, ufactor=1.010, no2hop=NO, minconn=NO, contig=NO, nooutput=NO
+ seed=-1, niter=10, ncuts=1
+
+Recursive Partitioning ------------------------------------------------------
+ - Edgecut: 1617, communication volume: 1671.
+
+ - Balance:
+     constraint #0:  1.003 out of 0.002
+
+ - Most overweight partition:
+     pid: 24, actual: 626, desired: 624, ratio: 1.00.
+
+ - Subdomain connectivity: max: 11, min: 2, avg: 4.08
+
+ - There are 2 non-contiguous partitions.
+   Total components after removing the cut edges: 27,
+   max components: 2 for pid: 1.
+
+Timing Information ----------------------------------------------------------
+  I/O:          		   0.012 sec
+  Partitioning: 		   0.024 sec   (METIS time)
+  Reporting:    		   0.000 sec
+
+Memory Information ----------------------------------------------------------
+  Max memory used:		   1.698 MB
+******************************************************************************
