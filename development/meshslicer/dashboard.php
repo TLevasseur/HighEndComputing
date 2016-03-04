@@ -88,7 +88,7 @@ if(isset($_SESSION['login'])) {
                             <a href="dashboard.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="signin.php?signout=1"><i class="fa fa-power-off  fa-fw"></i> Log out</a>
+                            <a href="signout.php"><i class="fa fa-power-off  fa-fw"></i> Log out</a>
                         </li>
                         <li>
                             <a href="contact.php"><i class="fa fa-paper-plane fa-fw"></i> Contact</a>
