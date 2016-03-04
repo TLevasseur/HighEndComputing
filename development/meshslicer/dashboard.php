@@ -1,5 +1,5 @@
 <?php
-include('Net/SSH2.php');
+include('Net/SFTP.php');
 function trimFile ($str) {
     return ltrim($str, "./");
 }
@@ -8,17 +8,18 @@ session_start();
 
 if(isset($_SESSION['login'])) {
 
-    $ssh = new Net_SSH2('hpclogin-1.central.cranfield.ac.uk');
-    if (!$ssh->login($_SESSION["id"], $_SESSION["passwd"])) {
+    $sftp = new Net_SFTP('hpclogin-1.central.cranfield.ac.uk');
+    if (!$sftp->login($_SESSION["id"], $_SESSION["passwd"])) {
         header("location:signin.php?error=1");
     }
 
-    $ls = array_filter(explode("\n", $ssh->exec("cd \$w; ls -d *\/")));
+    $ls = array_filter(explode("\n", $sftp->exec("cd \$w; ls -d *\/")));
     if(!in_array("meshslicer/", $ls)) {
-        $ssh->exec("cd \$w; mkdir meshslicer; cd meshslicer; mkdir conf; touch config.ini; echo '0 0 0 0 0 0 0 1 2 0' > config.ini");
+        $sftp->exec("cd \$w; mkdir meshslicer; cd meshslicer; mkdir conf; cd conf; touch config.ini; echo '0 0 0 0 0 0 0 1 2 0' > config.ini");
+        $sftp->put('/scratch/'.$_SESSION["id"].'/meshslicer/conf/StandAlone', 'uploads/StandAlone' , NET_SFTP_LOCAL_FILE);
     }
 
-    $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
+    $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $sftp->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
     unset($_SESSION["login"]);
 }
 
@@ -319,7 +320,7 @@ if(isset($_SESSION['login'])) {
                                     <label for="nparts">Number of partitions</label>
                                     <input type="number" min="1" value="2" class="form-control" id="nparts"></input>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="submitIniFile">Update</button>
+                                <button type="button" class="btn btn-primary" id="submitIniFile">Update parameters</button>
                             </div>
                         </div>
                         <script src="bower_components/jquery/dist/jquery.min.js"></script>
