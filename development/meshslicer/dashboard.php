@@ -115,7 +115,7 @@ if(isset($_SESSION['login'])) {
                 </div>
                 <!-- /.row -->
 
-                <div class="row">
+                <div class="row" style="display:none;">
                      <div class="col-lg-4 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -179,7 +179,7 @@ if(isset($_SESSION['login'])) {
                 </div>
                 <!-- /.row -->
 
-                <div class="row">
+                <div class="row" style="display:none;">
                     <div class="col-lg-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -224,7 +224,7 @@ if(isset($_SESSION['login'])) {
                                 <form id="dropzone" action="upload-file.php" class="dropzone needsclick" id="demo-upload">
                                     <table id="fileListTable" class="table table-hover">
                                         <tr>
-                                            <th></th><th style="width:80%">Filename</th><th>Actions</th>
+                                            <th></th><th style="width:75%">Filename</th><th>Actions</th>
                                         </tr>
                                         <?php
                                         foreach ($_SESSION["fileList"] as $file) {
@@ -653,7 +653,6 @@ $(function() {
                     else {
                         element.next().hide();
                         element.show();
-                        console.log(fileName);
                         var reg = /.mesh$/;
                         if(reg.test(fileName)) {
                             addFileRow(fileName + '.eoutput.csr');

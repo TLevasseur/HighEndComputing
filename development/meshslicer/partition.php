@@ -17,6 +17,10 @@ if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
 		$_SESSION['fileList'][] = $file.'.noutput.csr';
 		sort($_SESSION['fileList']);
 	}
+	elseif (preg_match('#.graph$#', $file)) {
+		//$_SESSION['fileList'][] = $file.'.part.';
+		sort($_SESSION['fileList']);
+	}
 
 	$reply = json_encode(array('Error' => '0', 'Message' => ''));
 
