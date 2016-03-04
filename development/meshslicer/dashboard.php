@@ -185,11 +185,20 @@ if(isset($_SESSION['login'])) {
                             <div class="panel-heading">
                                 Partitioned Graph
                             </div>
-                            <div class="panel-body" style="text-align:center">
+                            <div class="panel-body" id="container">
                                 <!--<img style="width:50%" src="img/graph.png" />-->
-                                <div id="container">
-                                    <div id="graph-container"></div>
-                                </div>
+                                <style>
+                                    #container {
+                                      height: 500px;
+                                    }
+                                    #graph-container {
+                                        /*position: absolute;*/
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                </style>
+                                <div id="graph-container"></div>
+                        
                             </div>
                         </div>
                     </div>
@@ -548,15 +557,10 @@ $(function() {
                 if (tabElement.Error == '1') {
                     alert(tabElement.Message);
                 }else {
-                    //alert(tabElement.toSource());
                     Nodes=tabElement.Nodes;
                     Color=tabElement.Color;
                     element.removeClass("downloading").addClass("fa-eye");
                     element.next().show();
-
-                    alert(Nodes.toSource());
-
-
 
                     var i,
                         s,
@@ -586,16 +590,16 @@ $(function() {
 
                     Object.keys(Nodes).forEach(function (key) {
                         g.nodes.push({id: key,
-                                    label: key,
+                                    //label: key,
                                     x:Math.random()*100,
                                     y:Math.random()*100,
                                     size:2,
                                     color:cs[Color[key-1]].color});
                     });
-
+                    i=0;
                     Object.keys(Nodes).forEach(function (key) {
                         Object.keys(Nodes[key]).forEach(function (key2) {
-                            g.edges.push({id: key + "000000" + key2 ,source:key,target:key2});
+                            g.edges.push({id: ++i ,source:key,target:Nodes[key][key2]});
                         });
                     });
 
@@ -614,17 +618,6 @@ $(function() {
 
 
                     s.startForceAtlas2({worker: true, barnesHutOptimize: false});
-
-
-
-
-
-
-
-
-
-
-
                 }
             }
         });
