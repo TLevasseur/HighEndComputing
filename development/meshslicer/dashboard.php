@@ -218,7 +218,7 @@ if(isset($_SESSION['login'])) {
                                             echo $file;
                                             echo '</td><td>';
                                             if(preg_match('#.part.#', $file)) {
-                                                echo '<i class="fa fa-eye"></i> ';
+                                                echo '<i class="fa fa-eye displayPart"></i> ';
                                             }
                                             else {
                                                 echo '<input type="radio" name="file" value="0"> ';
@@ -443,7 +443,7 @@ Dropzone.options.dropzone = {
             var rows = $('<tr>');
             rows.append('<td><i class="fa fa-file-o"></i></td>');
             rows.append('<td>'+file.name+'</td>');
-            rows.append('<td><i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
+            rows.append('<td><input type="radio" name="file" value="0">  <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
             rows.hide();
             $('#fileListTable tr').eq(index).after(rows);
             rows.fadeIn("slow");
