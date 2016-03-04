@@ -15,7 +15,7 @@ if(isset($_SESSION['login'])) {
 
     $ls = array_filter(explode("\n", $ssh->exec("cd \$w; ls -d *\/")));
     if(!in_array("meshslicer/", $ls)) {
-        $ssh->exec("cd \$w; mkdir meshslicer; cd meshslicer; mkdir conf");
+        $ssh->exec("cd \$w; mkdir meshslicer; cd meshslicer; mkdir conf; touch config.ini; echo '0 0 0 0 0 0 0 1 2 0' > config.ini");
     }
 
     $_SESSION["fileList"] = array_map('trimFile', array_filter(explode("\n", $ssh->exec("cd \$w/meshslicer; find . -maxdepth 1 -not -type d"))));
