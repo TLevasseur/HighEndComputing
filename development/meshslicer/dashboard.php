@@ -233,7 +233,7 @@ if(isset($_SESSION['login'])) {
                                             <td><i class="fa fa-file-o"></i></td><td>';
                                             echo $file;
                                             echo '</td><td>';
-                                            if(preg_match('#.part.#', $file)) {
+                                            if(preg_match('#.output.csr$#', $file)) {
                                                 echo '<i class="fa fa-eye displayPart"></i> ';
                                             }
                                             else {
@@ -653,14 +653,15 @@ $(function() {
                     else {
                         element.next().hide();
                         element.show();
-                        var reg = /.mesh$/;
-                        if(reg.test(fileName)) {
+                        var reg1 = /.mesh$/;
+                        var reg2 = /.graph$/;
+                        if(reg1.test(fileName)) {
                             addFileRow(fileName + '.eoutput.csr');
                             addFileRow(fileName + '.noutput.csr');
                         }
-                        /*else if () {
-                            addFileRow();
-                        }*/
+                        else if (reg2.test(fileName)) {
+                            addFileRow(fileName + '.output.csr');
+                        }
                     }
                 }
             });

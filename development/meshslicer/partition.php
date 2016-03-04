@@ -18,7 +18,7 @@ if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
 		sort($_SESSION['fileList']);
 	}
 	elseif (preg_match('#.graph$#', $file)) {
-		//$_SESSION['fileList'][] = $file.'.part.';
+		$_SESSION['fileList'][] = $file.'.output.csr';
 		sort($_SESSION['fileList']);
 	}
 
