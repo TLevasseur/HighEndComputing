@@ -1,14 +1,16 @@
 <?php
+session_start();
+
+include('header.php');
 include('Net/SFTP.php');
+
 function trimFile ($str) {
     return ltrim($str, "./");
 }
 
-session_start();
-
 if(isset($_SESSION['login'])) {
 
-    $sftp = new Net_SFTP('hpclogin-1.central.cranfield.ac.uk');
+    $sftp = new Net_SFTP(SSH_HOST);
     if (!$sftp->login($_SESSION["id"], $_SESSION["passwd"])) {
         header("location:signin.php?error=1");
     }
@@ -77,7 +79,7 @@ if(isset($_SESSION['login'])) {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><i class="fa fa-pie-chart fa-fw"></i> MeshSlicer - <?php echo $_SESSION["id"]; ?></a>
+                <a class="navbar-brand" href="index.php"><i class="fa fa-pie-chart fa-fw"></i> MeshSlicer - <?php echo $_SESSION["id"]; ?></a>
             </div>
             <!-- /.navbar-header -->
 

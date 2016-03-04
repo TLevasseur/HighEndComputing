@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+include('header.php');
 include('Net/SFTP.php');
 
 $ds = DIRECTORY_SEPARATOR;
@@ -14,7 +15,7 @@ if (!empty($_FILES)) {
     $targetFile =  $targetPath. $_FILES['file']['name'];
     move_uploaded_file($tempFile, $targetFile);
 
-    $sftp = new Net_SFTP('hpclogin-1.central.cranfield.ac.uk');
+    $sftp = new Net_SFTP(SSH_HOST);
 	if ($sftp->login($_SESSION["id"], $_SESSION["passwd"])) {
 		$sftp->put('/scratch/'.$_SESSION["id"].'/meshslicer/'.$_FILES['file']['name'], $targetFile , NET_SFTP_LOCAL_FILE);
 		$_SESSION['fileList'][] = $_FILES['file']['name'];

@@ -1,11 +1,12 @@
 <?php
 session_start();
 
+include('header.php');
 include('Net/SFTP.php');
 
 $str = $_POST['str'];
 
-$sftp = new Net_SFTP('hpclogin-2.central.cranfield.ac.uk');
+$sftp = new Net_SFTP(SSH_HOST);
 if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
 
 	file_put_contents('uploads/config.ini', $str."\nnone");

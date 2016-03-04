@@ -1,11 +1,12 @@
 <?php
 session_start();
 
+include('header.php');
 include('Net/SFTP.php');
 
 $file = $_GET['file'];
 
-$sftp = new Net_SFTP('hpclogin-1.central.cranfield.ac.uk');
+$sftp = new Net_SFTP(SSH_HOST);
 if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
 
 	$sftp->delete('/scratch/'.$_SESSION['id'].'/meshslicer/'.$file);

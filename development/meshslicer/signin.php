@@ -2,8 +2,6 @@
 session_start();
 if(isset($_POST["inputId"])) {
 
-    include('Net/SSH2.php');
-
     $_SESSION["id"] = $_POST["inputId"];
     $_SESSION["passwd"] = $_POST["inputPassword"];
     $_SESSION["login"] = true;
