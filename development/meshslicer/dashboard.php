@@ -509,6 +509,9 @@ $(function() {
             }
         });
     });
+    $('.displayPart').click(function(){
+        alert("je suis un graph lol");
+    });
 });
 </script>
 
