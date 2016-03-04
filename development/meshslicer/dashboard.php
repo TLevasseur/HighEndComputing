@@ -184,6 +184,9 @@ if(isset($_SESSION['login'])) {
                             </div>
                             <div class="panel-body" style="text-align:center">
                                 <!--<img style="width:50%" src="img/graph.png" />-->
+                                <div id="container">
+                                    <div id="graph-container"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -483,6 +486,7 @@ $(function() {
     $('.getFile').css('cursor', 'pointer');
 
     $('.deleteFile').css('cursor', 'pointer');
+    $('.displayPart').css('cursor', 'pointer');
 
     $('.getFile').click(function() {
         var element = $(this);
@@ -529,7 +533,98 @@ $(function() {
         });
     });
     $('.displayPart').click(function(){
-        alert("je suis un graph lol");
+        var element = $(this);
+        element.removeClass("fa-eye").addClass("downloading");
+        element.prev().hide();
+        $.ajax({
+            url: 'graphOutput.php',
+            type: 'GET',
+            data: 'file=' + element.parent().prev().text(),
+            success: function(response) {
+                var tabElement = eval("(" + response + ")");
+                if (tabElement.Error == '1') {
+                    alert(tabElement.Message);
+                }else {
+                    //alert(tabElement.toSource());
+                    Nodes=tabElement.Nodes;
+                    Color=tabElement.Color;
+                    element.removeClass("downloading").addClass("fa-eye");
+                    element.next().show();
+
+                    alert(Nodes.toSource());
+
+
+
+                    var i,
+                        s,
+                        o,
+                        N = Nodes.length,
+                        E = 45000,
+                        C = parseInt(element.parent().prev().text().slice(-1)),
+                        d = 0.5,
+                        cs = [],
+                        g = {
+                          nodes: [],
+                          edges: []
+                        };
+
+                        for (i = 0; i < C; i++)
+                          cs.push({
+                            id: i,
+                            nodes: [],
+                            color: '#' + (
+                              Math.floor(Math.random() * 16777215).toString(16) + '000000'
+                            ).substr(0, 6)
+                          });
+                        cs[0].color="#337AB7";
+                        cs[1].color="#F0AD4E";
+                        if(C>2)cs[2].color="#5CB85C";
+                        if(C>3)cs[3].color="#D9534F";
+
+                    Object.keys(Nodes).forEach(function (key) {
+                        g.nodes.push({id: key,
+                                    label: key,
+                                    x:Math.random()*100,
+                                    y:Math.random()*100,
+                                    size:2,
+                                    color:cs[Color[key-1]].color});
+                    });
+
+                    Object.keys(Nodes).forEach(function (key) {
+                        Object.keys(Nodes[key]).forEach(function (key2) {
+                            g.edges.push({id: key + "000000" + key2 ,source:key,target:key2});
+                        });
+                    });
+
+
+                    s = new sigma({
+                      graph: g,
+                      container: 'graph-container',
+                      settings: {
+                        drawEdges: true,
+                        enableHovering : false,
+                        scalingMode : "outside",
+                        minArrowSize: 1,
+                        zoomMin: 0.0001
+                      }
+                    });
+
+
+                    s.startForceAtlas2({worker: true, barnesHutOptimize: false});
+
+
+
+
+
+
+
+
+
+
+
+                }
+            }
+        });
     });
     $('.launchPartition').click(function() {
         var fileName = $('input[name=file]:checked', '#dropzone').parent().prev().text();
@@ -550,5 +645,52 @@ $(function() {
     });
 });
 </script>
-
+<script src="src/sigma.core.js"></script>
+<script src="src/conrad.js"></script>
+<script src="src/utils/sigma.utils.js"></script>
+<script src="src/utils/sigma.polyfills.js"></script>
+<script src="src/sigma.settings.js"></script>
+<script src="src/classes/sigma.classes.dispatcher.js"></script>
+<script src="src/classes/sigma.classes.configurable.js"></script>
+<script src="src/classes/sigma.classes.graph.js"></script>
+<script src="src/classes/sigma.classes.camera.js"></script>
+<script src="src/classes/sigma.classes.quad.js"></script>
+<script src="src/classes/sigma.classes.edgequad.js"></script>
+<script src="src/captors/sigma.captors.mouse.js"></script>
+<script src="src/captors/sigma.captors.touch.js"></script>
+<script src="src/renderers/sigma.renderers.canvas.js"></script>
+<script src="src/renderers/sigma.renderers.webgl.js"></script>
+<script src="src/renderers/sigma.renderers.svg.js"></script>
+<script src="src/renderers/sigma.renderers.def.js"></script>
+<script src="src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+<script src="src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+<script src="src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+<script src="src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+<script src="src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+<script src="src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+<script src="src/renderers/svg/sigma.svg.utils.js"></script>
+<script src="src/renderers/svg/sigma.svg.nodes.def.js"></script>
+<script src="src/renderers/svg/sigma.svg.edges.def.js"></script>
+<script src="src/renderers/svg/sigma.svg.edges.curve.js"></script>
+<script src="src/renderers/svg/sigma.svg.labels.def.js"></script>
+<script src="src/renderers/svg/sigma.svg.hovers.def.js"></script>
+<script src="src/middlewares/sigma.middlewares.rescale.js"></script>
+<script src="src/middlewares/sigma.middlewares.copy.js"></script>
+<script src="src/misc/sigma.misc.animation.js"></script>
+<script src="src/misc/sigma.misc.bindEvents.js"></script>
+<script src="src/misc/sigma.misc.bindDOMEvents.js"></script>
+<script src="src/misc/sigma.misc.drawHovers.js"></script>
+<script src="plugins/sigma.layout.forceAtlas2/worker.js"></script>
+<script src="plugins/sigma.layout.forceAtlas2/supervisor.js"></script>
 </html>
