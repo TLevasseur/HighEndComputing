@@ -216,7 +216,14 @@ if(isset($_SESSION['login'])) {
                                             <tr class="file">
                                             <td><i class="fa fa-file-o"></i></td><td>';
                                             echo $file;
-                                            echo '</td><td><i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>
+                                            echo '</td><td>';
+                                            if(preg_match('#.part.#', $file)) {
+                                                echo '<i class="fa fa-eye"></i> ';
+                                            }
+                                            else {
+                                                echo '<input type="radio" name="file" value="0"> ';
+                                            }
+                                            echo '<i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>
                                             </tr>';
                                         }
                                         ?>
@@ -415,11 +422,6 @@ if(isset($_SESSION['login'])) {
 </body>
 
 <script>
-$('.table > tbody > .file').dblclick(function() {
-    $('.table > tbody > .file').css("background-color", "");
-    this.style.backgroundColor = "#f0f0f0";
-});
-
 Dropzone.options.dropzone = {
     previewTemplate: "<div id=\"ajax-loader\"><img src=\"img/ajax-loader.gif\" /></div>",
     init: function() {
