@@ -5,7 +5,7 @@ include('Net/SFTP.php');
 
 $file = $_GET['file'];
 
-$sftp = new Net_SFTP('hpclogin-1.central.cranfield.ac.uk');
+$sftp = new Net_SFTP('hpclogin-2.central.cranfield.ac.uk');
 if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
 
 	$sftp->exec('cd $w/meshslicer/conf/; sed -i "2s/.*/'.$file.'/" config.ini');
