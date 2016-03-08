@@ -114,98 +114,98 @@ if(isset($_SESSION['login'])) {
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
+                <div id="output" style="display: none;">
+                    <div class="row">
+                         <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-scissors fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge">14</div>
+                                            <div>Edge-cut</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-green">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-arrows-alt fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge">20</div>
+                                            <div>Volume</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-yellow">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-balance-scale fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge">7%</div>
+                                            <div>Imbalance</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-clock-o fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge">164ms</div>
+                                            <div>Execution time</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row -->
 
-                <div class="row">
-                     <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-scissors fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">14</div>
-                                        <div>Edge-cut</div>
-                                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    Partitioned Graph
+                                </div>
+                                <div class="panel-body" id="container">
+                                    <!--<img style="width:50%" src="img/graph.png" />-->
+                                    <style>
+                                        #container {
+                                          height: 750px;
+                                        }
+                                        #graph-container {
+                                            /*position: absolute;*/
+                                            width: 100%;
+                                            height: 100%;
+                                        }
+                                    </style>
+                                    <div id="graph-container"></div>
+                            
                                 </div>
                             </div>
                         </div>
+                        <!-- /.col-lg-12 -->
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-arrows-alt fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">20</div>
-                                        <div>Volume</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-balance-scale fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">7%</div>
-                                        <div>Imbalance</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-clock-o fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">164ms</div>
-                                        <div>Execution time</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- /.row -->
                 </div>
-                <!-- /.row -->
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                Partitioned Graph
-                            </div>
-                            <div class="panel-body" id="container">
-                                <!--<img style="width:50%" src="img/graph.png" />-->
-                                <style>
-                                    #container {
-                                      height: 500px;
-                                    }
-                                    #graph-container {
-                                        /*position: absolute;*/
-                                        width: 100%;
-                                        height: 100%;
-                                    }
-                                </style>
-                                <div id="graph-container"></div>
-                        
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <!-- /.row -->
-
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="panel panel-primary">
@@ -614,7 +614,7 @@ function setEvents() {
                             g.edges.push({id: ++i ,source:key,target:Nodes[key][key2]});
                         });
                     });
-
+                    $("#output").fadeIn(3000);
 
                     s = new sigma({
                       graph: g,
@@ -624,7 +624,7 @@ function setEvents() {
                         enableHovering : false,
                         scalingMode : "outside",
                         minArrowSize: 1,
-                        zoomMin: 0.0001
+                        zoomMin: 0.2
                       }
                     });
 
