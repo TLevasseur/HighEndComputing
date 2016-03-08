@@ -498,6 +498,7 @@ Dropzone.options.dropzone = {
 
 
 function setEvents() {
+    var s;
     $('.launchPartition').css('cursor', 'pointer');
 
     $('.getFile').css('cursor', 'pointer');
@@ -573,7 +574,6 @@ function setEvents() {
                     element.removeClass("downloading").addClass("fa-eye");
                     element.next().show();
                     var i,
-                        s,
                         o,
                         N = Nodes.length,
                         E = 45000,
@@ -613,7 +613,9 @@ function setEvents() {
                         });
                     });
                     $("#output").fadeIn(3000);
-
+                    if (typeof s !== 'undefined') {
+                        s.kill();
+                    }  
                     s = new sigma({
                       graph: g,
                       container: 'graph-container',
@@ -625,7 +627,6 @@ function setEvents() {
                         zoomMin: 0.2
                       }
                     });
-
 
                     s.startForceAtlas2({worker: true, barnesHutOptimize: false});
                 }
