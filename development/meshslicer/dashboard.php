@@ -663,7 +663,7 @@ function setEvents() {
                             addFileRow(fileName + '.noutput.csr');
                         }
                         else if (reg2.test(fileName)) {
-                            addFileRow(fileName + '.output.csr');
+                            addFileRow(fileName + '.' + tabElement.Message + '.parts.output.csr');
                         }
                     }
                 }
