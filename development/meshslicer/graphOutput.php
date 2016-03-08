@@ -58,12 +58,23 @@ if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
     // STATS
     $statFile = file($statsResults);
     $stats = array(0, 0, 0, 0);
-    $stats[0] = explode(': ', explode(', ', $statFile[14])[0])[1];
-    $stats[1] = explode('.', explode(': ', explode(', ', $statFile[14])[1])[1])[0];
-    $stats[2] = explode('=', explode(', ', $statFile[10])[1])[1];
-    $stats[3] = rtrim(explode(': ', trim($statFile[27]))[1], " sec");
-    $stats[3] += rtrim(explode(': ', trim($statFile[28]))[1], " sec (METIS time)");
-    $stats[3] += rtrim(explode(': ', trim($statFile[29]))[1], " sec");
+    foreach($statFile as $line => $content) {
+        if(preg_match('#^ dbglvl#', $content)) {
+            $line2 = $line;
+        }
+        elseif(preg_match('#^ - Edgecut:#', $content)) {
+            $line1 = $line;
+        }
+        elseif(preg_match('#^Timing Information#', $content)) {
+            $line3 = $line;
+        }
+    }
+    $stats[0] = explode(': ', explode(', ', $statFile[$line1])[0])[1];
+    $stats[1] = explode('.', explode(': ', explode(', ', $statFile[$line1])[1])[1])[0];
+    $stats[2] = explode('=', explode(', ', $statFile[$line2])[1])[1];
+    $stats[3] = rtrim(explode(': ', trim($statFile[$line3+1]))[1], " sec");
+    $stats[3] += rtrim(explode(': ', trim($statFile[$line3+2]))[1], " sec (METIS time)");
+    $stats[3] += rtrim(explode(': ', trim($statFile[$line3+3]))[1], " sec");
 
     $reply=json_encode(array( 'Nodes' => $Nodes, 'Color' => $color, 'Stats' => $stats));
   }else{
