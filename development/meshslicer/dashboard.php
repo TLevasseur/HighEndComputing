@@ -115,8 +115,8 @@ if(isset($_SESSION['login'])) {
                 </div>
                 <!-- /.row -->
 
-                <div class="row" style="display:none;">
-                     <div class="col-lg-4 col-md-6">
+                <div class="row">
+                     <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
@@ -131,8 +131,8 @@ if(isset($_SESSION['login'])) {
                             </div>
                         </div>
                     </div>
-                    <!--<div class="col-lg-4 col-md-6">
-                        <div class="panel panel-primary">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -145,9 +145,9 @@ if(isset($_SESSION['login'])) {
                                 </div>
                             </div>
                         </div>
-                    </div>-->
-                    <div class="col-lg-4 col-md-6">
-                        <div class="panel panel-green">
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -161,8 +161,8 @@ if(isset($_SESSION['login'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="panel panel-yellow">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -179,7 +179,7 @@ if(isset($_SESSION['login'])) {
                 </div>
                 <!-- /.row -->
 
-                <div class="row" style="display:none;">
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
