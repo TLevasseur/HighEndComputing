@@ -229,7 +229,7 @@ if(isset($_SESSION['login'])) {
                                             <td><i class="fa fa-file-o"></i></td><td>';
                                             echo $file;
                                             echo '</td><td>';
-                                            if(preg_match('#.output.csr$#', $file)) {
+                                            if(preg_match('#parts.[0-9]*.[0-9]*#', $file)) {
                                                 echo '<i class="fa fa-eye displayPart"></i> ';
                                             }
                                             else {
@@ -453,22 +453,17 @@ if(isset($_SESSION['login'])) {
 
 <script>
 function addFileRow(fileName) {
-    var index = 0;
-    /*$('#fileListTable tr td:nth-child(2)').each(function(i) {
-        if($(this).text() > fileName) {
-            index = i;
-            return false;
-        }
-        index = i;
-    });*/
-    index = $('#fileListTable tr td:nth-child(2)').length;
-
-    console.log(index);
-
     var rows = $('<tr>');
     rows.append('<td><i class="fa fa-file-o"></i></td>');
     rows.append('<td>'+fileName+'</td>');
-    rows.append('<td><input type="radio" name="file" value="0">  <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
+    
+    if(fileName.match('/parts.[0-9]*.[0-9]*/')) {
+        rows.append('<td><i class="fa fa-eye displayPart"></i> <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
+    }
+    else {
+        rows.append('<td><input type="radio" name="file" value="0">  <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
+    }
+    
     rows.hide();
     $('#fileListTable tr').eq(index).after(rows);
     rows.fadeIn("slow");
@@ -654,11 +649,11 @@ function setEvents() {
                         var reg1 = /.mesh$/;
                         var reg2 = /.graph$/;
                         if(reg1.test(fileName)) {
-                            addFileRow(fileName + '.eoutput.csr');
-                            addFileRow(fileName + '.noutput.csr');
+                            addFileRow(fileName + '.eout.parts.' + tabElement.Partitions + '.' + tabElement.Index);
+                            addFileRow(fileName + '.nout.parts.' + tabElement.Partitions + '.' + tabElement.Index);
                         }
                         else if (reg2.test(fileName)) {
-                            addFileRow(fileName + '.' + tabElement.Message + '.parts.output.csr');
+                            addFileRow(fileName + '.out.parts.' + tabElement.Partitions + '.' + tabElement.Index);
                         }
                     }
                 }
