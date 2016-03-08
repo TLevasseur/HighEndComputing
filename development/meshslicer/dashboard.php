@@ -577,7 +577,7 @@ function setEvents() {
                         o,
                         N = Nodes.length,
                         E = 45000,
-                        C = parseInt(element.parent().prev().text().split(".parts.",1)[0].split('.').pop()),
+                        C = parseInt(element.parent().prev().text().split(".parts.")[1].split('.')[0]),
                         d = 0.5,
                         cs = [],
                         g = {
