@@ -563,10 +563,10 @@ function setEvents() {
                     alert(tabElement.Message);
                 }else {
                     var stats = tabElement.Stats;
-                    $('#edgecutVal').text();
-                    $('#volumeVal').text();
-                    $('#balanceVal').text();
-                    $('#timeVal').text();
+                    $('#edgecutVal').text(stats[0]);
+                    $('#volumeVal').text(stats[1]);
+                    $('#balanceVal').text(((stats[2] - 1)*100).toFixed(2) + ' %');
+                    $('#timeVal').text(stats[3] + ' ms');
 
                     Nodes=tabElement.Nodes;
                     Color=tabElement.Color;

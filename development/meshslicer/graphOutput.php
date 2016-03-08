@@ -59,7 +59,7 @@ if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
     $statFile = file($statsResults);
     $stats = array(0, 0, 0, 0);
     $stats[0] = explode(': ', explode(', ', $statFile[14])[0])[1];
-    $stats[1] = explode(': ', explode(', ', $statFile[14])[1])[1];
+    $stats[1] = explode('.', explode(': ', explode(', ', $statFile[14])[1])[1])[0];
     $stats[2] = explode('=', explode(', ', $statFile[10])[1])[1];
     $stats[3] = rtrim(explode(': ', trim($statFile[27]))[1], " sec");
     $stats[3] += rtrim(explode(': ', trim($statFile[28]))[1], " sec (METIS time)");
