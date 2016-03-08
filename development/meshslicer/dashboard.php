@@ -453,6 +453,7 @@ if(isset($_SESSION['login'])) {
 
 <script>
 function addFileRow(fileName) {
+    var index = $('#fileListTable tr td:nth-child(2)').length;
     var rows = $('<tr>');
     rows.append('<td><i class="fa fa-file-o"></i></td>');
     rows.append('<td>'+fileName+'</td>');
