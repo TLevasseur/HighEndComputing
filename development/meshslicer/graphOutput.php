@@ -8,11 +8,13 @@ $fileToGet = $_GET['file'];
 $graphPartition = 'uploads/'.$fileToGet;
 $tmp=explode(".parts.", $fileToGet, 2)[0];
 $initialGraph = 'uploads/'.substr($tmp,0,strrpos($tmp, '.'));
+$statsResults = 'uploads/'.$fileToGet.'.stats';
 
 $sftp = new Net_SFTP(SSH_HOST);
 if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
   $sftp->get('/scratch/'.$_SESSION['id'].'/meshslicer/'.$fileToGet, $graphPartition);
   $sftp->get('/scratch/'.$_SESSION['id'].'/meshslicer/'.substr($tmp,0,strrpos($tmp, '.')), $initialGraph);
+  $sftp->get('/scratch/'.$_SESSION['id'].'/meshslicer/results/'.$fileToGet, $statsResults);
 
   if($txt_file    = file_get_contents($initialGraph)){
     $rows        = explode("\n", $txt_file);
@@ -52,7 +54,18 @@ if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
     $rows        = explode("\n", $txt_file);
     $color=[];
     for($i=0;$i<$N;$i++) $color[$i]=intval($rows[$i]);
-    $reply=json_encode(array( 'Nodes' => $Nodes, 'Color' => $color));
+
+    // STATS
+    $statFile = file($statsResults);
+    $stats = array(0, 0, 0, 0);
+    $stats[0] = explode(': ', explode(', ', $statFile[14])[0])[1];
+    $stats[1] = explode(': ', explode(', ', $statFile[14])[1])[1];
+    $stats[2] = explode('=', explode(', ', $statFile[10])[1])[1];
+    $stats[3] = rtrim(explode(': ', trim($statFile[27]))[1], " sec");
+    $stats[3] += rtrim(explode(': ', trim($statFile[28]))[1], " sec (METIS time)");
+    $stats[3] += rtrim(explode(': ', trim($statFile[29]))[1], " sec");
+
+    $reply=json_encode(array( 'Nodes' => $Nodes, 'Color' => $color, 'Stats' => $stats));
   }else{
     $reply = json_encode(array('Error' => '1', 'Message' => "Reading file problem"));
   }

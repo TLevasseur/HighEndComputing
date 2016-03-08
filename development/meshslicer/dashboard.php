@@ -120,7 +120,7 @@ if(isset($_SESSION['login'])) {
                                             <i class="fa fa-scissors fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div class="huge">14</div>
+                                            <div class="huge" id="edgecutVal"></div>
                                             <div>Edge-cut</div>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@ if(isset($_SESSION['login'])) {
                                             <i class="fa fa-arrows-alt fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div class="huge">20</div>
+                                            <div class="huge" id="volumeVal"></div>
                                             <div>Volume</div>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@ if(isset($_SESSION['login'])) {
                                             <i class="fa fa-balance-scale fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div class="huge">7%</div>
+                                            <div class="huge" id="balanceVal"></div>
                                             <div>Imbalance</div>
                                         </div>
                                     </div>
@@ -165,7 +165,7 @@ if(isset($_SESSION['login'])) {
                                             <i class="fa fa-clock-o fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div class="huge">164ms</div>
+                                            <div class="huge" id="timeVal"></div>
                                             <div>Execution time</div>
                                         </div>
                                     </div>
@@ -456,7 +456,7 @@ function addFileRow(fileName) {
     var rows = $('<tr>');
     rows.append('<td><i class="fa fa-file-o"></i></td>');
     rows.append('<td>'+fileName+'</td>');
-    
+
     if(fileName.match('/parts.[0-9]*.[0-9]*/')) {
         rows.append('<td><i class="fa fa-eye displayPart"></i> <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
     }
@@ -561,6 +561,12 @@ function setEvents() {
                 if (tabElement.Error == '1') {
                     alert(tabElement.Message);
                 }else {
+                    var stats = tabElement.Stats;
+                    $('#edgecutVal').text();
+                    $('#volumeVal').text();
+                    $('#balanceVal').text();
+                    $('#timeVal').text();
+
                     Nodes=tabElement.Nodes;
                     Color=tabElement.Color;
                     element.removeClass("downloading").addClass("fa-eye");
