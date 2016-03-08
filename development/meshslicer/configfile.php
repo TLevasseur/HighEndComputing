@@ -6,6 +6,8 @@ include('Net/SFTP.php');
 
 $str = $_POST['str'];
 
+$_SESSION['config'] = explode(' ', $str);
+
 $sftp = new Net_SFTP(SSH_HOST);
 if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
 
