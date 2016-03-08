@@ -574,13 +574,12 @@ function setEvents() {
                     Color=tabElement.Color;
                     element.removeClass("downloading").addClass("fa-eye");
                     element.next().show();
-
                     var i,
                         s,
                         o,
                         N = Nodes.length,
                         E = 45000,
-                        C = parseInt(element.parent().prev().text().slice(-1)),
+                        C = parseInt(element.parent().prev().text().split(".parts.",1)[0].split('.').pop()),
                         d = 0.5,
                         cs = [],
                         g = {
