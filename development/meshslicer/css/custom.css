@@ -3,7 +3,7 @@
 	width: 16px;
 	background-image: url(../img/mini-loader.gif);
 }
-.loadPartition {
+.loadPartition, #configLoader {
 	margin: auto;
 	text-align: center;
 }

@@ -348,12 +348,18 @@ if(isset($_SESSION['login'])) {
                                     <input type="number" min="1" value="2" class="form-control" id="nparts"></input>
                                 </div>
                                 <button type="button" class="btn btn-primary" id="submitIniFile">Update parameters</button>
+                                <div id="configLoader" style="display:none;">
+                                    <img src="img/ajax-loader.gif" />
+                                </div>
+                        </div>
                             </div>
                         </div>
                         <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
                         <script>
                         $('#submitIniFile').click(function(){
+                            $('#submitIniFile').hide();
+                            $('#configLoader').show();
                             /*value 3,4,5,*/
                             p.partitionParam=$('input[name=objtype]:checked').val();
                             p.coarseningSheme=$('input[name=ctype]:checked').val();
@@ -382,7 +388,8 @@ if(isset($_SESSION['login'])) {
                                         alert(tabElement.Message);
                                     }
                                     else {
-                                        
+                                        $('#configLoader').hide();
+                                        $('#submitIniFile').show();
                                     }
                                 }
                             }); 
