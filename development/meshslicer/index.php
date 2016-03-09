@@ -125,8 +125,15 @@
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">High Tech</h2>
+                    <h2 class="section-heading">Keep full control of your partitioning</h2>
                     <p class="lead">Bring Metis to your HPC cluster and visualize results easily through our displayer powered by <a href="http://sigmajs.org/" style="color:#333">&#963;sigma<span style="color:#ec5148">js</span></a>.</p>
+                    <p class="lead">Quickly overview results with the reports of key values :</p>
+                    <ul class="lead">
+                        <li>Edge cut</li>
+                        <li>Volume</li>
+                        <li>Imbalance</li>
+                        <li>Execution time</li>
+                    </ul>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                     <img class="img-responsive" src="img/graph2.png" alt="" style="width:150%">
@@ -147,8 +154,13 @@
                 <div class="col-lg-5 col-sm-6">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
+                    <ul>
+                    <li class="lead">If you fear Linux Command line</li>
+                    <li class="lead">If you wish to overview quickly results</li>
+                    <li class="lead">If you like simple things</li>
+                    </ul>
                     <h2 class="section-heading">Get our app now !</h2>
-                    <p class="lead">You'll see, it is awesome.</p>
+                    
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="img/like.png" alt="">
@@ -168,7 +180,7 @@
 
             <div class="row">
                 <div class="col-lg-6">
-                    <h2>Connect to Start Slicing !</h2>
+                    <h2>Connect to start slicing !</h2>
                 </div>
                 <div class="col-lg-6">
                     <ul class="list-inline banner-social-buttons">
