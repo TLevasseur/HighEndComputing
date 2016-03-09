@@ -105,13 +105,12 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">The best way to partition your graphs</h2>
-                    <p class="lead">MeshSlicer in a Web Application which, linked to your company's HPC cluster, can perform efficient graph and mesh partitioning.</p>
+                    <p class="lead">MeshSlicer in a Web Application which, linked to your company's HPC cluster, can perform efficient graph and mesh partitioning using Metis.</p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                     <img class="img-responsive" src="img/plane.jpg" alt="">
                 </div>
             </div>
-
         </div>
         <!-- /.container -->
 
@@ -127,7 +126,7 @@
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">High Tech</h2>
-                    <p class="lead">Metis, SSH to your HPC cluster.</p>
+                    <p class="lead">Bring Metis to your HPC cluster and visualize results easily through our displayer powered by <a href="http://sigmajs.org/" style="color:#333">&#963;sigma<span style="color:#ec5148">js</span></a>.</p>
                 </div>
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                     <img class="img-responsive" src="img/graph2.png" alt="" style="width:150%">
