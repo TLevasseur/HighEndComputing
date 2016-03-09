@@ -640,46 +640,49 @@ function setEvents() {
             }
         });
     });
-    $('.launchPartition').click(function() {
-        var fileName = $('input[name=file]:checked', '#dropzone').parent().prev().text();
-        if (fileName == '') {
-            alert("No graph/mesh file selected.");
-        }
-        else {
-            var element = $(this);
-            element.hide();
-            element.next().show();
-            $.ajax({
-                url: 'partition.php',
-                type: 'GET',
-                data: 'file=' + fileName,
-                success: function(response) {
-                    var tabElement = eval("(" + response + ")");
-                    if (tabElement.Error == '1') {
-                        alert(tabElement.Message);
-                    }
-                    else {
-                        element.next().hide();
-                        element.show();
-                        var reg1 = /.mesh$/;
-                        var reg2 = /.graph$/;
-                        if(reg1.test(fileName)) {
-                            addFileRow(fileName + '.eout.parts.' + tabElement.Partitions + '.' + tabElement.Index);
-                            addFileRow(fileName + '.nout.parts.' + tabElement.Partitions + '.' + tabElement.Index);
-                        }
-                        else if (reg2.test(fileName)) {
-                            addFileRow(fileName + '.out.parts.' + tabElement.Partitions + '.' + tabElement.Index);
-                        }
-                    }
-                }
-            });
-        }
-    });
 }
 
 $(function() {
    setEvents(); 
 })
+
+$('.launchPartition').click(function() {
+    var fileName = $('input[name=file]:checked', '#dropzone').parent().prev().text();
+    if (fileName == '') {
+        alert("No graph/mesh file selected.");
+    }
+    else {
+        var element = $(this);
+        element.hide();
+        element.next().show();
+        $.ajax({
+            url: 'partition.php',
+            type: 'GET',
+            data: 'file=' + fileName,
+            success: function(response) {
+                var tabElement = eval("(" + response + ")");
+                if (tabElement.Error == "1") {
+                    alert(tabElement.Message);
+                    element.next().hide();
+                    element.show();
+                }
+                else {
+                    element.next().hide();
+                    element.show();
+                    var reg1 = /.mesh$/;
+                    var reg2 = /.graph$/;
+                    if(reg1.test(fileName)) {
+                        addFileRow(fileName + '.eout.parts.' + tabElement.Partitions + '.' + tabElement.Index);
+                        addFileRow(fileName + '.nout.parts.' + tabElement.Partitions + '.' + tabElement.Index);
+                    }
+                    else if (reg2.test(fileName)) {
+                        addFileRow(fileName + '.out.parts.' + tabElement.Partitions + '.' + tabElement.Index);
+                    }
+                }
+            }
+        });
+    }
+});
 
 </script>
 <script src="src/sigma.core.js"></script>
