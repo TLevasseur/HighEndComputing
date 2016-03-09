@@ -469,7 +469,7 @@ function addFileRow(fileName) {
         rows.append('<td><i class="fa fa-eye displayPart"></i> <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
     }
     else {
-        rows.append('<td><i class="fa fa-eye getFile">  <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
+        rows.append('<td><input type="radio" name="file" value="0">  <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
     }
     
     rows.hide();
