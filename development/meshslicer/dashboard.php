@@ -464,8 +464,8 @@ function addFileRow(fileName) {
     var rows = $('<tr>');
     rows.append('<td><i class="fa fa-file-o"></i></td>');
     rows.append('<td>'+fileName+'</td>');
-
-    if(fileName.match('/parts.[0-9]*.[0-9]*/')) {
+    var reg=/parts.[0-9]*.[0-9]*/
+    if(reg.test(fileName)) {
         rows.append('<td><i class="fa fa-eye displayPart"></i> <i class="fa fa-download getFile"></i> <i class="fa fa-times deleteFile"></i></td>');
     }
     else {
