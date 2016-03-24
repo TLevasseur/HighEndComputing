@@ -1,5 +1,7 @@
 \documentclass{cranfieldChart}
 
+\usepackage{hyperref}
+
 
 \begin{document}
 
@@ -17,7 +19,7 @@ P. Wang
 
 \begin{abstract}
 The traditional way to write software application is serial, and instructions are executed on a single processor one after another.
-As scientific simulation problem's size grows, this way becomes more and more time consuming and is no longer suitable. This is why we introduce the notion of parallel computing: the simultaneous use of multiple processors to solve a single and large size computational problem. One of the important approach to parallel computing is the distribution of memory and problem partitioning. Partitioning a problem can be challenging since the total work load should be divided in a way that processors share the same amount of work load and inter-processor communication time is minimized. In order to simplify the graph problem and so make the partitioning problem easier, we introduce another phase before computing the partition phase: coarsening phase, where a matching of edges is performed and vertices incident on these edges are collapsed together. We also introduce a final phase: refinement phase which reform the partitioned graph to it original form. Our work aims to address the challenge of partitioning graphs using open source libraries: METIS and ParMETIS. We conducted a website that enables users to connect to Astral resources remotely and partition their graphs online in a timely fashion. 
+As scientific simulation problem's size grows, this way becomes more and more time consuming and is no longer suitable. This is why we introduce the notion of parallel computing: the simultaneous use of multiple processors to solve a single and large size computational problem. One of the important approach to parallel computing is the distribution of memory and problem partitioning. Partitioning a problem can be challenging since the total work load should be divided in a way that processors share the same amount of work load and inter-processor communication time is minimized. In order to simplify the graph problem and so make the partitioning problem easier, we introduce another phase before computing the partition phase: coarsening phase, where a matching of edges is performed and vertices incident on these edges are collapsed together. We also introduce a final phase: refinement phase which reform the partitioned graph to it original form. Our work aims to address the challenge of partitioning graphs using the open source library: METIS. We conducted a website that enables users to connect to Astral resources remotely and partition their graphs online in a timely fashion. 
 \end{abstract}
 
 \section{Feasibility Analysis} 
@@ -181,7 +183,11 @@ Thibaud, who is also familiar with JavaScript and PHP, is in charge with:
 \end{itemize}
 
 \paragraph{}
-Gonzalo, who feels comfortable of using Astral remotely, volunteer to develop a program which connects Astral and our website interface.
+Gonzalo, who feels comfortable of using Astral remotely, volunteer to develop a program which connects Astral and our website interface: \begin{itemize}
+	\item Read the input file and partitioning settings.
+	\item Perform the partitioning and generate an indexed output.
+	\item Assist on the web development of the partitioning settings form and the FAQ section.
+\end{itemize}
 
 \paragraph{}
 And Pei is responsible for, 
@@ -206,6 +212,43 @@ One can see from the screenshot available on figure \ref{resultexample}, nodes o
 
 \newpage
 \appendix
+\section{Work Load and Task management}
+\subsection*{Partitioning application}
+\paragraph{Task 1: Application research}
+The first step in the development of the partitioning application was to understand the basics of the tools we were about to use for the implementation. We decided to use metis as it was an easy to install tool, which could be set in any HPC facility in a reasonable time. Additionally, since the purpose of our application is not performance, but usability.
+The first work package consisted in reading thoroughly the Metis manual available at the \href{http://glaros.dtc.umn.edu/gkhome/metis/metis/overview}{Metis webpage} and create a summary for every member of the team to properly understand the functions and standalone programs available for partitioning. The summary document is available in the appendix.
+
+\paragraph{Task 2: Application planning}
+The group decided to implement the application based on a ssh connection from the webpage, and for being able to implement the settings for the partitioning, we decided to use a configuration file that checked a series of integer values. The application would be split in the configuration file reading function and the partitioning function, based on those parameters.
+
+\paragraph{Task 3: Configuration file} 
+After defining the application components, the team focused on defining the configuration file properly and coding an algorithm to read it and store the values in an array, for being able to partition taking those values into account. 
+
+\paragraph{Task 4: Partitioning code}
+The first approach was to develop a C program using the Metis Library functions available, implying a graph or mesh file reading and decomposition. The team developed an initial prototype for this purpose, but it had some issues with memory allocation for big input files, hence the approach was changed to exploit the standalone partitioning programs. 
+This implied losing some of the configuration options, but the memory allocation was no longer needed, and the application was quickly developed and tested against basic graphs and meshes. For calling the standalone programs, the configuration file reading function was modified to generate a string with the required command, 
+
+\paragraph{Task 5: Output}
+The team studied the best way to rename the output files, and the general output name filename.out.parts.<Number of partitions>.<index> was implemented. This way, the user would be able to identify the number of partitions easily, and save results from different settings for the same input. The index value is increased each time the program is executed for the same file with the same number of partitions.
+
+\paragraph{Task 6: Code Evolution}
+Once the website was finished, the team spent some time perfecting the interface between the website and the application, and some minor tweaks had to be implemented in the code, for guaranteeing seamless interaction. The final code is available in the attachments as standalone.c.
+
+
+\newpage
+
+\section{Potential improvements}
+
+\paragraph{}
+Due to the need of meeting deadlines, the development team had to give up some non-critical features of the application, but these features are still taken into consideration, and could be introduced in future versions of the software.
+\begin{itemize}
+	\item Running a demo version of the partitioning software, not requiring an HCP account to work.
+	\item Fixing the issues with the ibrary based application and implementing a parallel version of the partitioning for big files (using ParMetis).
+	\item Refining the mesh representation for increased understanding.
+	\item Improved error handling, with more details on error cause.
+	\item Dealing with file sizes larger than 15Mb.
+	\item  Loading the last file on login and auto-loading result of the simulation.
+\end{itemize}
 
 \section{Meeting report : 11/01/15}
 
@@ -247,7 +290,7 @@ A prototype of the interface has been made using a bootstrap template and is ava
 \paragraph{}
 Thibaud has began to work on an algorithm to display a graph. It works, but it is extremely slow as the graph contains millions of vertices. It might be useless to display the whole graph, using a coarsened one should be enough to have a preview of the partitioned graph.
 
-\section*{Tools}
+\subsection*{Tools}
 
 \paragraph{}
 We have set up a Trello and a Github repository to help us with the project management and the development. Fanny does not have her accounts yet, but will create them and learn to use those tools.
@@ -255,7 +298,7 @@ We have set up a Trello and a Github repository to help us with the project mana
 \paragraph{}
 A technical issue about how to use SSH on a web application has been raised, but after a short research, we found that some PHP libraries exist and are easy to use.
 
-\section*{Legal aspects}
+\subsection*{Legal aspects}
 
 \paragraph{}
 Is it possible to "sell" an Astral account in addition of our web app to our customer ? We have to study the legal aspect. We are considering three different kinds of customers :
@@ -265,7 +308,7 @@ Is it possible to "sell" an Astral account in addition of our web app to our cus
 	\item People not having any Astral account
 \end{itemize}
 
-\section*{Priorities}
+\subsection*{Priorities}
 
 \paragraph{}
 We will visit the Cranfield IT department to ask whether it is possible to have an agreement with an external company to use Astral.
@@ -441,5 +484,56 @@ The following idea were described for further improvement:
 \end{itemize} 
 \subsection*{Shooting demo video}
 As Astral is not always fast working, it has been decided to shoot a video in order to have a B plan if the demo is not working properly during the presentation of the 10/03/2016.
+
+\newpage
+\section{Meeting report 24/03/15}
+
+\subsection*{Details}
+{\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Date & Attending & Report writer \\\hline
+		\begin{tabular}{c}
+			04/03/2015\\
+			11:30am - 12pm
+		\end{tabular} & 
+		\begin{tabular}{c}
+			Diaferia Quentin\\
+			Levasseur Thibaud\\ 
+			Pei Wang\\
+			Perez Bada Gonzalo
+		\end{tabular} & 
+		Perez Bada Gonzalo \\\hline
+	\end{tabular}
+	\par}
+\subsection*{Agenda}
+The following topics were discuss in this meeting :
+\begin{itemize}
+	\item Final product delivery;
+	\item Final report;
+	\item Potential improvements;
+	
+\end{itemize}
+
+
+\subsection*{Final product delivery}
+Basic elements to deliver :
+\begin{itemize}
+	\item Working virtual machine with the working website installed on a localhost;
+	\item Partitioning application code
+	\item Web page source code
+	\item Final report
+\end{itemize}
+\subsection*{Final report}
+All the sections of the report were checked:
+\begin{itemize}
+	\item Technical report;
+	\item Workload distribution;
+	\item Project management and work tasks;
+	\item Potential improvements;
+	\item Appendixes, including sub-products and the meeting agendas.
+\end{itemize} 
+\subsection*{Potential improvements}
+The team dedicated some extra time to define possible new features and functionality fixes for the application in future versions, and included a list in the report as a new section.
 
 \end{document}
