@@ -79,6 +79,15 @@ if(isset($_SESSION['login'])) {
             </div>
             <!-- /.navbar-header -->
 
+            <ul class="nav navbar-nav navbar-right" style="margin-right:50px">
+                <li>
+                    <a href="index.php">Home</a>
+                </li>
+                <li>
+                    <a href="faq.php">FAQ</a>
+                </li>
+            </ul>
+
             
 
             <div class="navbar-default sidebar" role="navigation">
