@@ -12,7 +12,6 @@ P. Wang
 
 \newpage
 \tableofcontents
-\listoffigures
 \newpage
 
 \begin{abstract}
@@ -194,7 +193,7 @@ And Pei is responsible for,
 
 \section{Development}
 
-\subsection{Web interface}
+\subsection{Web application}
 
 \paragraph{Bootstrap}
 One of the most important aspect of this project is the interface. Our goal is to provide a user-friendly application, therefore this interface has to be intuitive and clear. To achieve this objective, we decided to use the Bootstrap framework. Nowadays, a lot of websites are built thanks to this frameworks which provides easy ways to develop HTML/CSS applications.
@@ -206,6 +205,8 @@ On the server side, we are using PHP in order to call Astral and perform the par
 Our goal is to call Metis on Astral via PHP. To do so, we need to access Astral, and the only way we can do that is by using an SSH connexion. PHP provides a module called SSH2, but it is not available on every server, and is quite difficult to install, even on a local machine. In order to solve this, we found a external library, PHPseclib, which provides classes and methods to use the SSH protocol.
 
 This library turned out to be even more useful, as it also provides a class to use the SFTP protocol, which was very helpful to develop the upload and download of files between the web application and Astral.
+
+\paragraph{Graph displayer}
 
 \subsection{METIS}
 
