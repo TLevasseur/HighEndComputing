@@ -79,6 +79,15 @@ if(isset($_SESSION['login'])) {
             </div>
             <!-- /.navbar-header -->
 
+            <ul class="nav navbar-nav navbar-right" style="margin-right:50px">
+                <li>
+                    <a href="index.php">Home</a>
+                </li>
+                <li>
+                    <a href="faq.php">FAQ</a>
+                </li>
+            </ul>
+
             
 
             <div class="navbar-default sidebar" role="navigation">
@@ -584,14 +593,19 @@ function setEvents() {
                         o,
                         N = Nodes.length,
                         E = 45000,
-                        C = parseInt(element.parent().prev().text().split(".parts.")[1].split('.')[0]),
                         d = 0.5,
                         cs = [],
                         g = {
                           nodes: [],
                           edges: []
                         };
-
+                        if(element.parent().prev().text().indexOf("eparts") > -1){
+                            C = parseInt(element.parent().prev().text().split(".eparts.")[1].split('.')[0]);
+                        }else if(element.parent().prev().text().indexOf("nparts") > -1){
+                            C = parseInt(element.parent().prev().text().split(".nparts.")[1].split('.')[0]);
+                        }else{
+                            C = parseInt(element.parent().prev().text().split(".parts.")[1].split('.')[0]);
+                        }
                         for (i = 0; i < C; i++)
                           cs.push({
                             id: i,

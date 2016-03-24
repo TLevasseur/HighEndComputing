@@ -8,21 +8,25 @@ $fileToGet = $_GET['file'];
 $graphPartition = 'uploads/'.$fileToGet;
 if(strpos($fileToGet, '.nparts.') !== false){
     $tmp=explode(".out.nparts.", $fileToGet, 2)[0];
-    $initialGraph = 'uploads/'.substr($tmp,0,strrpos($tmp, '.'));
+    $initialGraph = 'uploads/'.$tmp;
+    $resultFile=explode("nparts", $fileToGet, 2)[0]."parts".explode("nparts", $fileToGet, 2)[1];
 }else if(strpos($fileToGet, '.eparts.') !== false){
     $tmp=explode(".out.eparts.", $fileToGet, 2)[0];
-    $initialGraph = 'uploads/'.substr($tmp,0,strrpos($tmp, '.'));
+    $initialGraph = 'uploads/'.$tmp;
+    $resultFile=explode("eparts", $fileToGet, 2)[0]."parts".explode("eparts", $fileToGet, 2)[1];
 }else{
     $tmp=explode(".parts.", $fileToGet, 2)[0];
     $initialGraph = 'uploads/'.substr($tmp,0,strrpos($tmp, '.'));
+    $tmp=substr($tmp,0,strrpos($tmp, '.'));
+    $resultFile=$fileToGet;
 }
 $statsResults = 'uploads/'.$fileToGet.'.stats';
 
 $sftp = new Net_SFTP(SSH_HOST);
 if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
   $sftp->get('/scratch/'.$_SESSION['id'].'/meshslicer/'.$fileToGet, $graphPartition);
-  $sftp->get('/scratch/'.$_SESSION['id'].'/meshslicer/'.substr($tmp,0,strrpos($tmp, '.')), $initialGraph);
-  $sftp->get('/scratch/'.$_SESSION['id'].'/meshslicer/results/'.$fileToGet, $statsResults);
+  $sftp->get('/scratch/'.$_SESSION['id'].'/meshslicer/'.$tmp, $initialGraph);
+  $sftp->get('/scratch/'.$_SESSION['id'].'/meshslicer/results/'.$resultFile, $statsResults);
 
   if($txt_file    = file_get_contents($initialGraph)){
     $rows        = explode("\n", $txt_file);
@@ -58,17 +62,18 @@ if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
           }
         }
         for($i=0;$i<$max;$i++)
-          $color[$i+1]=intval($colorRows[$i]);
+          $color[$i]=intval($colorRows[$i]);
     }else if(strpos($fileToGet, '.eparts.') !== false){
         $txt_file    = file_get_contents($graphPartition);
         $colorRows= explode("\n", $txt_file);
         $color=[];
+        $color[0]=$colorRows[0];
         //Initial Set
         for($i=1;$i<=$N;$i++){
           $r=explode(" ",$rows[$i]);
           foreach ($r as $k => $v) {
             $val=intval($v);
-            $color[$i]=intval($colorRows[$i-1]);
+            $color[$i]=intval($colorRows[$i]);
             foreach ($r as $k2 => $v2) {
                 
                 $val2=intval($v2);
@@ -142,7 +147,11 @@ if ($sftp->login($_SESSION['id'], $_SESSION['passwd'])) {
         }
     }
     $stats[0] = explode(': ', explode(', ', $statFile[$line1])[0])[1];
-    $stats[1] = explode('.', explode(': ', explode(', ', $statFile[$line1])[1])[1])[0];
+    if(strpos($fileToGet, '.eparts.') !== false || strpos($fileToGet, '.nparts.') !== false){
+        $stats[1] = "Not provided";
+    }else{
+        $stats[1] = explode('.', explode(': ', explode(', ', $statFile[$line1])[1])[1])[0];
+    }
     $stats[2] = explode('=', explode(', ', $statFile[$line2])[1])[1];
     $stats[3] = rtrim(explode(': ', trim($statFile[$line3+1]))[1], " sec");
     $stats[3] += rtrim(explode(': ', trim($statFile[$line3+2]))[1], " sec (METIS time)");
