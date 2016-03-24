@@ -210,17 +210,16 @@ Our goal is to call Metis on Astral via PHP. To do so, we need to access Astral,
 This library turned out to be even more useful, as it also provides a class to use the SFTP protocol, which was very helpful to develop the upload and download of files between the web application and Astral.
 
 \paragraph{Graph displayer}
-In order to display the graph in a web bruiser, we choose to use a Javascript plug-in called sigma.js. However, as it might be heavy for the client's machine to handle the whole graph, we decided to reduce it using a home-made algorithm based on the random matching idea. This algorithm basically find a random node and match it with one of its neighbor chosen also randomly. The fusion of those two nodes is a new node linked with the union of the neighbors of its two precursors.
-We set the number of nodes to 1500 as it was working properly on a machine of 6 gigabyte of RAM (empiric testing).
+
 \subsection{METIS}
 
 \paragraph{Application research}
 The first step in the development of the partitioning application was to understand the basics of the tools we were about to use for the implementation. We decided to use metis as it was an easy to install tool, which could be set in any HPC facility in a reasonable time. Additionally, since the purpose of our application is not performance, but usability.
 
-The first work package consisted in reading thoroughly the Metis manual available at the Metis web page and create a summary for every member of the team to properly understand the functions and standalone programs available for partitioning. The summary document is available in the appendix.
+The first work package consisted in reading thoroughly the Metis manual available at the Metis webpage and create a summary for every member of the team to properly understand the functions and standalone programs available for partitioning. The summary document is available in the appendix.
 
 \paragraph{Application planning}
-The group decided to implement the application based on a SSH connection from the web page, and for being able to implement the settings for the partitioning, we decided to use a configuration file that checked a series of integer values. The application would be split in the configuration file reading function and the partitioning function, based on those parameters.
+The group decided to implement the application based on a SSH connection from the webpage, and for being able to implement the settings for the partitioning, we decided to use a configuration file that checked a series of integer values. The application would be split in the configuration file reading function and the partitioning function, based on those parameters.
 
 \paragraph{Configuration file}
 After defining the application components, the team focused on defining the configuration file properly and coding an algorithm to read it and store the values in an array, for being able to partition taking those values into account.
@@ -248,7 +247,7 @@ Once the website was finished, the team spent some time perfecting the interface
 \end{figure}
 
 \paragraph{}
-One can see from the screenshot available on figure \ref{resultexample}, nodes on the graph are painted into different color which indicates the partition. The edge-cut value, volume value, imbalance value is calculated and displayed as well as the execution time which is in order of second. 
+One can see from the screenshot available on figure 3, nodes on the graph are painted into different color which indicates the partition. The edge-cut value, volume value, imbalance value is calculated and displayed as well as the execution time which is in order of second. 
 
 \newpage
 \appendix
@@ -545,6 +544,20 @@ The team dedicated some extra time to define possible new features and functiona
 \includegraphics[width=1\textwidth]{ressources/trello}
 \label{trello}
 \caption{Trello, screenshot taken during the redaction of this report}
+\end{figure}
+
+\newpage
+
+\section{Work load}
+
+\paragraph{}
+Here is a table summarising the tasks and time spend on the project of each member of the group.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\textwidth]{ressources/workload}
+\label{workload}
+\caption{Time spend on each task of the project}
 \end{figure}
 
 \newpage
